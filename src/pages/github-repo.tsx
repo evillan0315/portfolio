@@ -1,84 +1,84 @@
 "use client";
 import { useState } from "react";
-import TextField from "@mui/material/TextField";
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import GitHubRepoList from "@/components/GithubRepoList";
+import { Box, Container, Dialog } from "@mui/material";
+import PrimarySearchAppBar from "@/components/PrimarySearchAppBar";
+import GitHubRepoList from "@/components/github/GithubRepoList";
+import PageTopBar from "@/components/PageTopBar";
+import CreateRepoForm from "@/components/github/CreateRepoForm";
+import LoadingComponent from "@/components/LoadingComponent";
+import RefreshIcon from '@mui/icons-material/RefreshRounded';
+import SettingIcon from '@mui/icons-material/SettingsApplicationsRounded';
 
-const CreateRepoPage = () => {
-  const [repoName, setRepoName] = useState("");
-  const [isPrivate, setIsPrivate] = useState(false);
-  const [message, setMessage] = useState("");
+const GithubRepoPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState("");
+  const [openCreateRepoDialog, setOpenCreateRepoDialog] = useState(false);
+  const [sortBy, setSortBy] = useState<"name" | "date">("name");
 
-  const handleCreateRepo = async () => {
-    const response = await fetch("/api/cloud/github", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ repoName, isPrivate: isPrivate }),
-    });
+  // Open the create repo dialog
+  const handleOpenCreateRepoDialog = () => {
+    setOpenCreateRepoDialog(true);
+  };
 
-    const data = await response.json();
-    if (response.ok) {
-      setMessage(`Repository "${repoName}" created successfully!`);
-    } else {
-      setMessage(`Error: ${data.error}`);
+  // Close the create repo dialog
+  const handleCloseCreateRepoDialog = () => {
+    setOpenCreateRepoDialog(false);
+  };
+
+  // Handle repository creation
+  const handleCreateRepo = async (repoData: { name: string; isPrivate: boolean }) => {
+    setIsLoading(true);
+    setLoadingMessage("Creating Repository...");
+    
+    try {
+      const response = await fetch("/api/cloud/github", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(repoData),
+      });
+
+      if (!response.ok) throw new Error("Failed to create repository");
+
+      // Simulate a small delay to enhance UX
+      setTimeout(() => {
+        setOpenCreateRepoDialog(false);
+        setIsLoading(false);
+      }, 1000);
+    } catch (error) {
+      console.error("Error:", error);
+      setIsLoading(false);
     }
   };
 
   return (
-    <Box sx={{ maxWidth: 400, margin: "auto", padding: 2 }}>
-      <GitHubRepoList />
-      <Typography variant="h4" gutterBottom>
-        Create GitHub Repository
-      </Typography>
+    <Box sx={{p:4}}>
+      {isLoading && <LoadingComponent message={loadingMessage} />}
+      <Container>
+        <PrimarySearchAppBar />
+        <PageTopBar
+          title="My Repositories"
+          showAdd
+          showSort
+          showMenu
+          onAddClick={handleOpenCreateRepoDialog}
+          onSortClick={() => setSortBy(sortBy === "name" ? "date" : "name")}
+          menuOptions={[
+            { icon: <RefreshIcon />, label: "Refresh", action: () => console.log("Refresh Clicked") },
+            { icon: <SettingIcon />, label: "Settings", action: () => console.log("Settings Clicked") },
+          ]}
+        />
+        <GitHubRepoList sortBy={sortBy} />
+      </Container>
 
-      <TextField
-        label="Repository Name"
-        variant="outlined"
-        fullWidth
-        value={repoName}
-        onChange={(e) => setRepoName(e.target.value)}
-        required
-        sx={{ marginBottom: 2 }}
-      />
-
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={isPrivate}
-            onChange={(e) => setIsPrivate(e.target.checked)}
-            color="primary"
-          />
-        }
-        label="Private Repository"
-        sx={{ marginBottom: 2 }}
-      />
-
-      <Button
-        variant="contained"
-        color="primary"
-        fullWidth
-        onClick={handleCreateRepo}
-        sx={{ marginBottom: 2 }}
-      >
-        Create Repository
-      </Button>
-
-      {message && (
-        <Typography
-          variant="body2"
-          color={message.startsWith("Error") ? "error" : "success"}
-        >
-          {message}
-        </Typography>
-      )}
+      {/* Create Repo Dialog */}
+      <Dialog open={openCreateRepoDialog} onClose={handleCloseCreateRepoDialog}>
+        <CreateRepoForm onCreate={handleCreateRepo} />
+      </Dialog>
     </Box>
   );
 };
 
-export default CreateRepoPage;
+export default GithubRepoPage;
+

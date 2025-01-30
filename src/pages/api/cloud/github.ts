@@ -1,12 +1,15 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { createGitHubRepo, deleteGitHubRepo, updateGitHubRepo, fetchGitHubData } from "@/utils/github";
 
+
 // Define the expected type for the request body
 interface RepoRequestBody {
   repoName: string;
-  isPrivate: boolean;  // Renamed to avoid conflict with the `private` keyword
+  description?: string;
+  website?: string;
+  topics?: string[];
+  isPrivate: boolean;
 }
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { method } = req;
 
@@ -38,16 +41,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   // Create repository (POST)
-  if (method === "POST") {
-    const { repoName, isPrivate }: RepoRequestBody = req.body;
+  if (req.method === "POST") {
+    const { repoName, description, website, topics, isPrivate }: RepoRequestBody = req.body;
 
-    const result = await createGitHubRepo(repoName, isPrivate);
+    console.log("Creating repo:", { repoName, description, website, topics, isPrivate });
+
+    const result = await createGitHubRepo(repoName, description, website, topics, isPrivate);
+    
     if (result) {
       res.status(200).json({ message: "Repository created successfully!", data: result });
     } else {
       res.status(500).json({ error: "Failed to create GitHub repository" });
     }
-  }
+  } 
 
   // Update repository (PATCH)
   if (method === "PATCH") {

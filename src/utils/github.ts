@@ -16,28 +16,44 @@ export const fetchGitHubData = async (endpoint: string) => {
   }
 };
 
-export const createGitHubRepo = async (repoName: string, isPrivate: boolean = false) => {
+export const createGitHubRepo = async (
+  repoName: string,
+  description?: string,
+  website?: string,
+  topics?: string[],
+  isPrivate: boolean = false
+) => {
   try {
-    // Create the repository
     const createResponse = await axios.post(
       `${GITHUB_API_URL}/user/repos`,
       {
         name: repoName,
-        private: isPrivate,  // Use isPrivate here
+        description: description || "", 
+        homepage: website || "", 
+        private: isPrivate,  
+        topics: topics || [],
       },
       {
         headers: {
           Authorization: `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
+          Accept: "application/vnd.github.v3+json",
         },
       }
     );
 
-    // Repository created successfully, now fetch additional info
-    const repoData = createResponse.data;
+    return createResponse.data; // Return repository data
+  } catch (error) {
+    console.error("Error creating GitHub repository:", error);
+    return null;
+  }
+};
 
-    // Fetch additional info about the repository (e.g., from the repository URL)
-    const getRepoResponse = await axios.get(
-      `${GITHUB_API_URL}/repos/${repoData.owner.login}/${repoData.name}`,
+// Update repository (e.g., name, description, visibility)
+export const updateGitHubRepo = async (owner: string, repoName: string, updateData: { name?: string, description?: string, private?: boolean }) => {
+  try {
+    const response = await axios.patch(
+      `${GITHUB_API_URL}/repos/${owner}/${repoName}`,
+      updateData,
       {
         headers: {
           Authorization: `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
@@ -45,10 +61,28 @@ export const createGitHubRepo = async (repoName: string, isPrivate: boolean = fa
       }
     );
 
-    return getRepoResponse.data;  // Return detailed information about the repository
-
+    return response.data;  // Return updated repository data
   } catch (error) {
-    console.error("Error creating or fetching GitHub repository:", error);
+    console.error("Error updating GitHub repository:", error);
     return null;
+  }
+};
+
+// Delete repository by its owner and repo name
+export const deleteGitHubRepo = async (owner: string, repoName: string) => {
+  try {
+    const response = await axios.delete(
+      `${GITHUB_API_URL}/repos/${owner}/${repoName}`,
+      {
+        headers: {
+          Authorization: `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
+        },
+      }
+    );
+
+    return response.status === 204;  // GitHub returns 204 No Content on success
+  } catch (error) {
+    console.error("Error deleting GitHub repository:", error);
+    return false;
   }
 };
