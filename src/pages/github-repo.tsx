@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Checkbox from "@mui/material/Checkbox";
@@ -6,7 +6,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import GitHubRepoList from "@/components/GitHubRepoList";
+import GitHubRepoList from "@/components/GithubRepoList";
 
 const CreateRepoPage = () => {
   const [repoName, setRepoName] = useState("");
@@ -32,9 +32,11 @@ const CreateRepoPage = () => {
 
   return (
     <Box sx={{ maxWidth: 400, margin: "auto", padding: 2 }}>
-    <GitHubRepoList />
-      <Typography variant="h4" gutterBottom>Create GitHub Repository</Typography>
-      
+      <GitHubRepoList />
+      <Typography variant="h4" gutterBottom>
+        Create GitHub Repository
+      </Typography>
+
       <TextField
         label="Repository Name"
         variant="outlined"
@@ -44,7 +46,7 @@ const CreateRepoPage = () => {
         required
         sx={{ marginBottom: 2 }}
       />
-      
+
       <FormControlLabel
         control={
           <Checkbox
@@ -68,7 +70,10 @@ const CreateRepoPage = () => {
       </Button>
 
       {message && (
-        <Typography variant="body2" color={message.startsWith("Error") ? "error" : "success"}>
+        <Typography
+          variant="body2"
+          color={message.startsWith("Error") ? "error" : "success"}
+        >
           {message}
         </Typography>
       )}
@@ -77,4 +82,3 @@ const CreateRepoPage = () => {
 };
 
 export default CreateRepoPage;
-

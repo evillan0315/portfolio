@@ -9,26 +9,30 @@ import TechnologySkillSpec from "@/components/portfolio/TechnologySkills";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Container from "@mui/material/Container";
+import { Spotlight } from "@/components/ui/spotlightv2";
+import BackgroundLinesSection from "@/components/BackgroundLinesSection";
 const HomePage = () => {
   return (
-  	<Spotlight />
-          <BackgroundLinesSection />
-    <Container className="relative z-10 h-screen w-full">
-      <Box sx={{ py: 6 }}>
-        <HeroSectionBackground />
-      </Box>
-      <Divider />
-      <Box sx={{ py: 6 }}>
-        <TechnologySkillSpec />
-        <InfiniteMovingCards
-          skills={SkillsComponentData.props}
-          direction="left"
-          speed="slow"
-        />
-      </Box>
+    <Box>
+      <Spotlight />
+      <BackgroundLinesSection />
+      <Container className="relative z-10 h-screen w-full">
+        <Box sx={{ py: 6 }}>
+          <HeroSectionBackground />
+        </Box>
+        <Divider />
+        <Box sx={{ py: 6 }}>
+          <TechnologySkillSpec />
+          <InfiniteMovingCards
+            skills={SkillsComponentData.props}
+            direction="left"
+            speed="slow"
+          />
+        </Box>
 
-      <BentoGridProject />
-    </Container>
+        <BentoGridProject />
+      </Container>
+    </Box>
   );
 };
 HomePage.requireAuth = false;
