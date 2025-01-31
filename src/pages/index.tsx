@@ -8,9 +8,11 @@ import HeroSectionBackground from "@/components/HeroSectionBackground";
 import TechnologySkillSpec from "@/components/portfolio/TechnologySkills";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Spotlight } from "@/components/ui/spotlightv2";
 import BackgroundLinesSection from "@/components/BackgroundLinesSection";
+import GitHubRepoList from "@/components/github/GithubRepoList";
 const HomePage = () => {
   return (
     <Box>
@@ -21,7 +23,7 @@ const HomePage = () => {
           <HeroSectionBackground />
         </Box>
         <Divider />
-        <Box sx={{ py: 6 }}>
+        <Box sx={{ pt: 6 }}>
           <TechnologySkillSpec />
           <InfiniteMovingCards
             skills={SkillsComponentData.props}
@@ -29,8 +31,17 @@ const HomePage = () => {
             speed="slow"
           />
         </Box>
-
-        <BentoGridProject />
+        <Box sx={{ py: 6 }}>
+          <Typography variant="h3" sx={{ mb: 6 }}>
+            Github Repositories
+          </Typography>
+          <GitHubRepoList />
+        </Box>
+        <Divider />
+        <Box sx={{ py: 6 }}>
+          <BentoGridProject />
+        </Box>
+        <Divider />
       </Container>
     </Box>
   );

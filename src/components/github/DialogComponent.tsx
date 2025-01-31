@@ -1,7 +1,6 @@
 "use client";
 import * as React from "react";
 import Button from "@mui/material/Button";
-import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -11,6 +10,8 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/CloseRounded";
 import { GitHubRepo } from "@/types/github";
 import DateFormat from "../DateFormat";
+import Link from "@mui/material/Link";
+import { IconBrandGithub } from "@tabler/icons-react";
 
 interface GithubDialogComponentProps {
   selectedRepo: GitHubRepo;
@@ -44,6 +45,9 @@ const GithubDialogComponent: React.FC<GithubDialogComponentProps> = ({
         <Typography variant="body1">
           <strong>Private:</strong> {selectedRepo?.private ? "Yes" : "No"}
         </Typography>
+        <Typography variant="body1">
+          <Link>{selectedRepo?.homepage}</Link>
+        </Typography>
       </DialogContent>
       <DialogActions>
         <Stack direction="row" spacing={2}>
@@ -57,7 +61,7 @@ const GithubDialogComponent: React.FC<GithubDialogComponentProps> = ({
           </Button>
           <Button
             variant="contained"
-            endIcon={<SendIcon />}
+            endIcon={<IconBrandGithub />}
             onClick={() => window.open(selectedRepo?.html_url, "_blank")}
             color="primary"
           >

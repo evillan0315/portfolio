@@ -19,8 +19,7 @@ export const fetchGitHubData = async (endpoint: string) => {
 export const createGitHubRepo = async (
   repoName: string,
   description?: string,
-  website?: string,
-  topics?: string[],
+  homepage?: string,
   isPrivate: boolean = false
 ) => {
   try {
@@ -28,10 +27,9 @@ export const createGitHubRepo = async (
       `${GITHUB_API_URL}/user/repos`,
       {
         name: repoName,
-        description: description || "", 
-        homepage: website || "", 
-        private: isPrivate,  
-        topics: topics || [],
+        description: description || "",
+        homepage: homepage || "",
+        private: isPrivate,
       },
       {
         headers: {
@@ -49,7 +47,11 @@ export const createGitHubRepo = async (
 };
 
 // Update repository (e.g., name, description, visibility)
-export const updateGitHubRepo = async (owner: string, repoName: string, updateData: { name?: string, description?: string, private?: boolean }) => {
+export const updateGitHubRepo = async (
+  owner: string,
+  repoName: string,
+  updateData: { name?: string; description?: string; private?: boolean }
+) => {
   try {
     const response = await axios.patch(
       `${GITHUB_API_URL}/repos/${owner}/${repoName}`,
@@ -61,7 +63,7 @@ export const updateGitHubRepo = async (owner: string, repoName: string, updateDa
       }
     );
 
-    return response.data;  // Return updated repository data
+    return response.data; // Return updated repository data
   } catch (error) {
     console.error("Error updating GitHub repository:", error);
     return null;
@@ -80,7 +82,7 @@ export const deleteGitHubRepo = async (owner: string, repoName: string) => {
       }
     );
 
-    return response.status === 204;  // GitHub returns 204 No Content on success
+    return response.status === 204; // GitHub returns 204 No Content on success
   } catch (error) {
     console.error("Error deleting GitHub repository:", error);
     return false;

@@ -10,7 +10,7 @@ import {
 interface RepoRequestBody {
   repoName: string;
   description?: string;
-  website?: string;
+  homepage?: string;
   topics?: string[];
   isPrivate: boolean;
 }
@@ -54,27 +54,20 @@ export default async function handler(
 
   // Create repository (POST)
   if (req.method === "POST") {
-    const {
-      repoName,
-      description,
-      website,
-      topics,
-      isPrivate,
-    }: RepoRequestBody = req.body;
+    const { repoName, description, homepage, isPrivate }: RepoRequestBody =
+      req.body;
 
     console.log("Creating repo:", {
       repoName,
       description,
-      website,
-      topics,
+      homepage,
       isPrivate,
     });
 
     const result = await createGitHubRepo(
       repoName,
       description,
-      website,
-      topics,
+      homepage,
       isPrivate
     );
 
@@ -93,12 +86,10 @@ export default async function handler(
 
     const updatedRepo = await updateGitHubRepo(owner, repoName, updateData);
     if (updatedRepo) {
-      res
-        .status(200)
-        .json({
-          message: "Repository updated successfully!",
-          data: updatedRepo,
-        });
+      res.status(200).json({
+        message: "Repository updated successfully!",
+        data: updatedRepo,
+      });
     } else {
       res.status(500).json({ error: "Failed to update GitHub repository" });
     }

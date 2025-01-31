@@ -6,46 +6,51 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid2";
 import Box from "@mui/material/Box";
-import Tooltip from "@mui/material/Tooltip";
 import Stack from "@mui/material/Stack";
 import Pagination from "@mui/material/Pagination";
-import IconButton from "@mui/material/IconButton";
 
 // Icons
-import VisibilityIcon from "@mui/icons-material/VisibilityRounded";
-import EditIcon from "@mui/icons-material/EditRounded";
-import DeleteIcon from "@mui/icons-material/DeleteForeverRounded";
+
 import axios from "axios";
 import GithubDialogComponent from "./DialogComponent";
 import { GitHubRepo } from "@/types/github";
+import DateFormat from "../DateFormat";
+import { CardActionArea } from "@mui/material";
+import LoadingComponent from "../LoadingComponent";
 // Type for a GitHub repo
 
 interface GitHubRepoListProps {
-  sortBy: "name" | "date"; // Sorting criteria
+  sortBy?: "name" | "date"; // Sorting criteria
 }
 
 const GitHubRepoList: React.FC<GitHubRepoListProps> = ({ sortBy }) => {
   const [repos, setRepos] = useState<GitHubRepo[]>([]);
   const [selectedRepo, setSelectedRepo] = useState<GitHubRepo | null>(null);
   const [openDialog, setOpenDialog] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState("");
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const reposPerPage = 6;
-
+  const reposPerPage = 9;
+  if (!sortBy) sortBy = "date";
   const fetchRepos = useCallback(async () => {
-	  try {
-	    const response = await axios.get("/api/cloud/github");
-	    const sortedRepos = sortRepositories(response.data, sortBy);
-	    setRepos(sortedRepos);
-	  } catch (error) {
-	    console.error("Error fetching GitHub repositories:", error);
-	  }
-	}, [sortBy]); // Dependencies
+    setIsLoading(true);
+    setMessage("Loading Github repo...");
+    try {
+      const response = await axios.get("/api/cloud/github");
+      const sortedRepos = sortRepositories(response.data, sortBy);
+      setRepos(sortedRepos);
+      setMessage("Repo has been loaded");
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      console.error("Error fetching GitHub repositories:", error);
+    }
+  }, [sortBy]); // Dependencies
 
-	useEffect(() => {
-	  fetchRepos();
-	}, [fetchRepos]); // Now `fetchRepo
+  useEffect(() => {
+    fetchRepos();
+  }, [fetchRepos]); // Now `fetchRepo
 
   // Sorting Function
   const sortRepositories = (
@@ -73,7 +78,7 @@ const GitHubRepoList: React.FC<GitHubRepoListProps> = ({ sortBy }) => {
   };
 
   // Handle repo deletion
-  const handleDeleteRepo = async (repoId: number) => {
+  /* const handleDeleteRepo = async (repoId: number) => {
     if (!window.confirm("Are you sure you want to delete this repository?"))
       return;
 
@@ -89,7 +94,7 @@ const GitHubRepoList: React.FC<GitHubRepoListProps> = ({ sortBy }) => {
   const handleUpdateRepo = (repo: GitHubRepo) => {
     console.log("Update repo:", repo);
     // You can add functionality to open an edit dialog here.
-  };
+  }; */
 
   // Handle pagination change
   const handlePageChange = (
@@ -106,51 +111,73 @@ const GitHubRepoList: React.FC<GitHubRepoListProps> = ({ sortBy }) => {
   //if (!selectedRepo) return null; // Handle null case
   return (
     <Box>
-      <Grid container spacing={3}>
+      {isLoading && <LoadingComponent message={message} />}
+      <Grid container spacing={1}>
         {currentRepos.map((repo) => (
           <Grid key={repo.id} size={4}>
-            <Card sx={{ height: "100%" }}>
-              <CardContent>
-                <Typography variant="h6">{repo.name}</Typography>
-                <Typography variant="body2" color="textSecondary">
-                  {repo.description || "No description available."}
-                </Typography>
-                <Typography
-                  variant="caption"
-                  display="block"
-                  color="textSecondary"
-                >
-                  Last Updated: {new Date(repo.updated_at).toLocaleDateString()}
-                </Typography>
+            <Card sx={{ p: 0 }} className="h-[100%]">
+              <CardActionArea onClick={() => handleRepoClick(repo)}>
+                <CardContent sx={{ p: 2 }}>
+                  <Typography
+                    variant="h6"
+                    className="line-clamp-1"
+                    sx={{ fontSize: "1rem", fontWeight: 200, mb: 2 }}
+                  >
+                    {repo.name}
+                  </Typography>
+                  <Box className="h-10">
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      className="line-clamp-1"
+                      sx={{ fontSize: ".7rem", fontWeight: 200 }}
+                    >
+                      {repo.description || "No description available."}
+                    </Typography>
 
-                {/* Icon Buttons */}
-                <Box display="flex" justifyContent="flex-end" gap={1} mt={2}>
-                  <Tooltip title="View Details">
-                    <IconButton
-                      color="primary"
-                      onClick={() => handleRepoClick(repo)}
+                    <Typography
+                      variant="caption"
+                      display="block"
+                      color="textSecondary"
+                      sx={{ fontSize: ".7rem", fontWeight: 200 }}
                     >
-                      <VisibilityIcon />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Update Repository">
-                    <IconButton
-                      color="info"
-                      onClick={() => handleUpdateRepo(repo)}
-                    >
-                      <EditIcon />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Delete Repository">
-                    <IconButton
-                      color="error"
-                      onClick={() => handleDeleteRepo(repo.id)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </Tooltip>
-                </Box>
-              </CardContent>
+                      Last Updated:{" "}
+                      <DateFormat date={repo?.updated_at} ago={true} />
+                    </Typography>
+                  </Box>
+
+                  {/* Icon Buttons */}
+                  {/* <Box display="flex" justifyContent="flex-end" gap={1} mt={1}>
+                    <Tooltip title="View Details">
+                      <IconButton
+                        color="primary"
+                        size="small"
+                        onClick={() => handleRepoClick(repo)}
+                      >
+                        <VisibilityIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Update Repository">
+                      <IconButton
+                        color="info"
+                        size="small"
+                        onClick={() => handleUpdateRepo(repo)}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete Repository">
+                      <IconButton
+                        color="error"
+                        size="small"
+                        onClick={() => handleDeleteRepo(repo.id)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </Box> */}
+                </CardContent>
+              </CardActionArea>
             </Card>
           </Grid>
         ))}

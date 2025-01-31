@@ -1,6 +1,7 @@
 export interface GitHubRepo {
   id: number;
   name: string;
+  repoName?: string;
   description: string;
   html_url: string;
   private: boolean;
@@ -9,4 +10,5 @@ export interface GitHubRepo {
   website?: string;
   topics?: [];
   action?: string;
+  homepage?: string;
 }
