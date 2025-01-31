@@ -4,7 +4,6 @@ import React, { useCallback, useState } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid2";
 
-
 import Button from "@mui/material/Button";
 import Drawer from "./ui/drawer";
 import MasonryImageList from "./ui/masonry-images";
@@ -18,7 +17,7 @@ import SendIcon from "@mui/icons-material/Send";
 import Typography from "@mui/material/Typography";
 
 import Container from "@mui/material/Container";
-import Image from "next/image"
+import Image from "next/image";
 type Props = {
   primaryButtonClick?: () => void;
 };
@@ -45,7 +44,6 @@ const HeroSectionBackground: React.FC<Props> = () => {
     } else {
       setContent(<MasonryImageList />);
     }
-
     setLoading(false);
     setOpen(true);
   }, []);
@@ -62,14 +60,14 @@ const HeroSectionBackground: React.FC<Props> = () => {
     <>
       <Box className="h-screen py-6">
         <Container>
-        <Grid size={12}>
-              <Box className="py-2">
-                <WordProcessor text={headline} animate headline />
-                <Box component="div" sx={{ minHeight: "120px" }}>
-                  <WordProcessor text={words} animate />
-                </Box>
+          <Grid size={12}>
+            <Box className="py-2">
+              <WordProcessor text={headline} animate headline />
+              <Box component="div" sx={{ minHeight: "120px" }}>
+                <WordProcessor text={words} animate />
               </Box>
-            </Grid>
+            </Box>
+          </Grid>
           <Grid
             container
             direction="row"
@@ -79,10 +77,18 @@ const HeroSectionBackground: React.FC<Props> = () => {
               alignItems: "center",
             }}
           >
-            
-            
-            <Grid size={{md:6,xs:12}}>
-              <Typography variant="h2" sx={{ pb: 4 }}>
+            <Grid size={{ md: 6, xs: 12 }}>
+              <Typography
+                variant="h2"
+                sx={{
+                  md: {
+                    fontSize: "2rem",
+                  },
+                  sm: {
+                    fontSize: "1.5rem",
+                  },
+                }}
+              >
                 Innovation & Leadership Excellence
               </Typography>
               <Typography
@@ -128,16 +134,16 @@ const HeroSectionBackground: React.FC<Props> = () => {
                   onClose={handleDrawerClose}
                 />
               </Grid>
-              
             </Grid>
-            <Grid size={{md:6,xs:12}} >
-              
-                <Box className="mx-auto" sx={{}}>
-                  
-<Image src="https://avatars.githubusercontent.com/u/192534455?v=4" width={200} height={200} alt="Eddie Villanueva"/>
-                </Box>
-
-                  
+            <Grid size={{ md: 6, xs: 12 }}>
+              <Box className="mx-auto" sx={{}}>
+                <Image
+                  src="https://avatars.githubusercontent.com/u/192534455?v=4"
+                  width={200}
+                  height={200}
+                  alt="Eddie Villanueva"
+                />
+              </Box>
             </Grid>
           </Grid>
         </Container>
