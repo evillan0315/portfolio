@@ -6,7 +6,7 @@ import FooterComponent from "../FooterComponent";
 import CssBaseline from "@mui/material/CssBaseline";
 
 import Box from "@mui/material/Box";
-import { ModeSwitcher } from "@/pages/_app";
+
 
 //import useDrawer from "@/hooks/useDrawer";
 
@@ -42,9 +42,6 @@ const DynamicLayout = ({
   return (
     <AppTheme disableCustomTheme={false}>
       <CssBaseline enableColorScheme />
-      <Box component="header" className="w-full fixed h-30 top-0 left-0 z-60">
-        <ModeSwitcher />
-      </Box>
       <Box
         component="div"
         className="h-screen w-full  bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden"
@@ -53,7 +50,7 @@ const DynamicLayout = ({
           {children}
         </Box>
       </Box>
-      <Box component="footer" className="fixed bottom-0 right-0 left-o mx-auto">
+      <Box component="footer">
         <FooterComponent />
       </Box>
     </AppTheme>

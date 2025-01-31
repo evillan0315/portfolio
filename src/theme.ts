@@ -2,11 +2,11 @@
 
 import localFont from "next/font/local";
 import { createTheme } from "@mui/material/styles";
-import { red, blueGrey, cyan } from "@mui/material/colors";
+import { red, cyan } from "@mui/material/colors";
 import { green } from "./shared-theme/themePrimitives";
 
-const primary = blueGrey[500];
-const secondary = blueGrey[200]; // #ff4081
+const primary = cyan[600];
+const secondary = cyan[900]; // #ff4081
 
 export const Montserrat = localFont({
   src: [

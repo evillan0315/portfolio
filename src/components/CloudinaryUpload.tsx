@@ -31,10 +31,7 @@ const CloudinaryUpload: React.FC<CloudinaryUploadProps> = ({
       height={height}
       alt={alt || ""}
       className={class_names}
-      crop={{
-        type: "auto",
-        source: true,
-      }}
+
     />
   );
 };

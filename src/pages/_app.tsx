@@ -7,13 +7,14 @@ import type { NextPage } from "next";
 import type { AppProps } from "next/app";
 import type { Navigation } from "@toolpad/core/AppProvider";
 import { SessionProvider, signIn, signOut, useSession } from "next-auth/react";
-import LinearProgress from "@mui/material/LinearProgress";
+//import LinearProgress from "@mui/material/LinearProgress";
 import { FaUserCircle } from "react-icons/fa";
 import { FaLaptopCode, FaStar, FaQuoteRight } from "react-icons/fa6";
 import DynamicLayout from "@/components/layout/DynamicLayout";
 import SEOHead from "@/components/SEOHead";
 import theme from "../theme";
-import { useColorScheme } from "@mui/material/styles";
+import LoadingComponent from "@/components/LoadingComponent";
+//import { useColorScheme } from "@mui/material/styles";
 export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
   getLayout?: () => React.ReactNode;
   requireAuth?: boolean;
@@ -22,7 +23,7 @@ export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
-export function ModeSwitcher() {
+/* export function ModeSwitcher() {
   const { mode, setMode } = useColorScheme();
 
   if (!mode) {
@@ -42,7 +43,7 @@ export function ModeSwitcher() {
       <option value="dark">Dark</option>
     </select>
   );
-}
+} */
 function getDefaultLayout(page: React.ReactElement<any>) {
   return (
     <>
@@ -56,7 +57,7 @@ function RequireAuth({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   if (status === "loading") {
-    return <LinearProgress />;
+    return <LoadingComponent message="Loading please wait..." />;
   }
 
   if (status === "unauthenticated") {

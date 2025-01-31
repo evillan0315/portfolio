@@ -7,3 +7,6 @@ body {
   font-family: "Montserrat";
   font-weight: 300;
 }
+img {
+  filter: inherit !important;
+}

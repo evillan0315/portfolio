@@ -1,0 +1,51 @@
+[
+  {
+    "name": "TypeScript",
+    "icon": "SiTypescript",
+    "color": "primary",
+    "description": "A superset of JavaScript that adds static typing. It enhances code quality and maintainability."
+  },
+  {
+    "name": "Python",
+    "icon": "SiPython",
+    "color": "error",
+    "description": "A versatile and powerful programming language. Great for web development, AI, and automation."
+  },
+  {
+    "name": "React",
+    "icon": "SiReact",
+    "color": "primary",
+    "description": "A JavaScript library for building interactive UIs. It makes frontend development efficient and scalable."
+  },
+  {
+    "name": "Next.js",
+    "icon": "SiNextdotjs",
+    "color": "secondary",
+    "description": "A React framework for server-side and static site generation. Optimized for performance and SEO."
+  },
+  {
+    "name": "Material-UI",
+    "icon": "SiMaterialui",
+    "color": "info",
+    "description": "A React component library following Google's Material Design. It provides beautiful, responsive UI components."
+  },
+  {
+    "name": "AWS",
+    "icon": "SiAmazonaws",
+    "color": "primary",
+    "description": "A cloud computing platform offering scalable solutions. Great for hosting, databases, and AI services."
+  },
+  {
+    "name": "PostgreSQL",
+    "icon": "SiPostgresql",
+    "color": "success",
+    "description": "A powerful open-source relational database system. It ensures high performance and data integrity."
+  },
+  {
+    "name": "Prisma",
+    "icon": "SiPrisma",
+    "color": "warning",
+    "description": "A next-gen database ORM for Node.js and TypeScript. It simplifies database access and migrations."
+  }
+]
+

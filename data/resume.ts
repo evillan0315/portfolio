@@ -1,7 +1,7 @@
 // Adjust the path as necessary
 import * as React from "react";
 
-import { Data } from "../types/models";
+import { Data } from "@/types/models";
 
 export const JobTech = {
   Dashboard: ["React", "NodeJS", "Kubernetes", "Docker"],
