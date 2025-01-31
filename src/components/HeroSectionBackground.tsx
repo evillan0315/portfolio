@@ -3,7 +3,7 @@
 import React, { useCallback, useState } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid2";
-import Card from "@mui/material/Card";
+
 
 import Button from "@mui/material/Button";
 import Drawer from "./ui/drawer";
@@ -16,8 +16,9 @@ import { DM_Sans } from "@/theme";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import SendIcon from "@mui/icons-material/Send";
 import Typography from "@mui/material/Typography";
-import Avatar from "@mui/material/Avatar";
+
 import Container from "@mui/material/Container";
+import Image from "next/image"
 type Props = {
   primaryButtonClick?: () => void;
 };
@@ -61,17 +62,7 @@ const HeroSectionBackground: React.FC<Props> = () => {
     <>
       <Box className="h-screen py-6">
         <Container>
-          <Grid
-            container
-            direction="row"
-            spacing={2}
-            columnGap={4}
-            sx={{
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <Grid size={12}>
+        <Grid size={12}>
               <Box className="py-2">
                 <WordProcessor text={headline} animate headline />
                 <Box component="div" sx={{ minHeight: "120px" }}>
@@ -79,22 +70,18 @@ const HeroSectionBackground: React.FC<Props> = () => {
                 </Box>
               </Box>
             </Grid>
-            <Grid size={6}>
-              <Card>
-                <Box textAlign="center">
-                  <Avatar
-                    src="/profile.jpg"
-                    alt="Profile Image"
-                    sx={{ width: 150, height: 150, marginBottom: 2 }}
-                  />
-                  <Typography variant="h6">John Doe</Typography>
-                  <Typography variant="body1" color="textSecondary">
-                    Full-Stack Developer
-                  </Typography>
-                </Box>
-              </Card>
-            </Grid>
-            <Grid size={6}>
+          <Grid
+            container
+            direction="row"
+            spacing={2}
+            sx={{
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            
+            
+            <Grid size={{md:6,xs:12}}>
               <Typography variant="h2" sx={{ pb: 4 }}>
                 Innovation & Leadership Excellence
               </Typography>
@@ -141,6 +128,16 @@ const HeroSectionBackground: React.FC<Props> = () => {
                   onClose={handleDrawerClose}
                 />
               </Grid>
+              
+            </Grid>
+            <Grid size={{md:6,xs:12}} >
+              
+                <Box className="mx-auto" sx={{}}>
+                  
+<Image src="https://avatars.githubusercontent.com/u/192534455?v=4" width={200} height={200} alt="Eddie Villanueva"/>
+                </Box>
+
+                  
             </Grid>
           </Grid>
         </Container>

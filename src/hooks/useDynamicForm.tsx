@@ -51,7 +51,7 @@ export default function useDynamicForm(model: string) {
       const fieldValues: Record<string, string> = {};
       form.sections.forEach((section) => {
         section.fields.forEach((field) => {
-          fieldValues[field.name] = field.value;
+          fieldValues[field.name] = field.name;
         });
       });
       return fieldValues;

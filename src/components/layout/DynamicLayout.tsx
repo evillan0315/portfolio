@@ -4,10 +4,7 @@ import React, { ReactNode } from "react";
 import AppTheme from "@/shared-theme/AppTheme";
 import FooterComponent from "../FooterComponent";
 import CssBaseline from "@mui/material/CssBaseline";
-//import LinearProgress from "@mui/material/LinearProgress";
-import { Spotlight } from "../ui/spotlightv2";
 
-import BackgroundLinesSection from "../BackgroundLinesSection";
 import Box from "@mui/material/Box";
 import { ModeSwitcher } from "@/pages/_app";
 
@@ -52,9 +49,7 @@ const DynamicLayout = ({
         component="div"
         className="h-screen w-full  bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden"
       >
-      
         <Box component="div" className=" z-20 w-full  h-screen overflow-auto">
-          
           {children}
         </Box>
       </Box>

@@ -16,7 +16,7 @@ const HomePage = () => {
     <Box>
       <Spotlight />
       <BackgroundLinesSection />
-      <Container className="relative z-10 h-screen w-full">
+      <Container className="relative z-10 h-screen w-full mx-auto">
         <Box sx={{ py: 6 }}>
           <HeroSectionBackground />
         </Box>

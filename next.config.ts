@@ -30,6 +30,7 @@ const nextConfig: NextConfig = {
       "www.aviationmaintenance.edu",
       "b3314629.smushcdn.com",
       "pbs.twimg.com",
+      "avatars.githubusercontent.com",
     ],
   },
 };
