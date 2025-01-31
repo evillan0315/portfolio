@@ -11,4 +11,5 @@ export interface GitHubRepo {
   topics?: [];
   action?: string;
   homepage?: string;
+  full_name?: string;
 }

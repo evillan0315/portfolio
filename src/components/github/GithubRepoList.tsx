@@ -121,9 +121,12 @@ const GitHubRepoList: React.FC<GitHubRepoListProps> = ({ sortBy }) => {
                   <Typography
                     variant="h6"
                     className="line-clamp-1"
-                    sx={{ fontSize: "1rem", fontWeight: 200, mb: 2 }}
+                    sx={{ fontSize: "1rem", fontWeight: 200 }}
                   >
                     {repo.name}
+                  </Typography>
+                  <Typography variant="caption" sx={{ fontWeight: 200, mb: 2 }}>
+                    {repo?.full_name}
                   </Typography>
                   <Box className="h-10">
                     <Typography
