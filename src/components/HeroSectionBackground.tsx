@@ -10,19 +10,19 @@ import MasonryImageList from "./ui/masonry-images";
 import { LayoutGridComponent } from "./LayoutGridComponent";
 import LoadingComponent from "./ui/loader";
 import WordProcessor from "./ui/word-processor";
-import { DM_Sans } from "@/theme";
+import { DM_Sans, Caveat } from "@/theme";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
-import  TechnologySkillSpec from "@/components/portfolio/TechnologySkills";
+import TechnologySkillSpec from "@/components/portfolio/TechnologySkills";
 import { IconBrandGithub, IconMail, IconPhone } from "@tabler/icons-react";
 import { HiDocumentText } from "react-icons/hi2";
 import IconButton from "@mui/material/IconButton";
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import XIcon from '@mui/icons-material/X';
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import XIcon from "@mui/icons-material/X";
 import Logo from "./Logo";
 type Props = {
   primaryButtonClick?: () => void;
@@ -64,8 +64,8 @@ const HeroSectionBackground: React.FC<Props> = () => {
   };
   return (
     <>
-      <Box className="h-screen py-6">
-        <Container>
+      <Box>
+        <Container className="h-screen py-6">
           <Grid size={12}>
             <Box className="py-2">
               <WordProcessor text={headline} animate headline />
@@ -90,70 +90,159 @@ const HeroSectionBackground: React.FC<Props> = () => {
                 spacing={2}
                 sx={{
                   mb: 2,
-                  justifyContent: "left",
+                  justifyContent: "space-between",
                   alignItems: "center",
                 }}
               >
-                
+                <Grid
+                  container
+                  direction={{ sm: "row", xs: "column" }}
+                  spacing={2}
+                  alignItems="center"
+                  sx={{
+                    mb: 2,
+                  }}
+                >
+                  <Grid size={{ md: 3, sm: 4, xs: 12 }}>
+                    <Logo width={130} height={130} />
+                  </Grid>
+                  <Grid size={{ md: 9, sm: 8, xs: 12 }}>
+                    <Typography
+                      variant="h1"
+                      color="primary"
+                      sx={{
+                        fontWeight: 500,
+                        fontSize: {
+                          lg: "3rem",
+                          md: "2rem",
+                          sm: "1.7rem",
+                          xs: "1.2rem",
+                        },
+                      }}
+                      className={`${DM_Sans.className}`}
+                    >
+                      Eddie Villanueva
+                    </Typography>
                     <Grid
                       container
                       direction={{ sm: "row", xs: "column" }}
-                      spacing={2}
-                      sx={{
-                        mb: 2,
-                     
-                      }}
+                      spacing={1}
+                      justifyContent={"left"}
+                      className="text-left"
                     >
-                      <Grid size={{ md: 2, sm: 4, xs: 12 }}>
-                        <Logo width={150} height={150} />
-                      </Grid>
-                      <Grid size={{ md: 10, sm: 8, xs: 12 }}>
-                        <Typography
-                          variant="h2"
-                          sx={{
-                            fontWeight: 500,
-                            fontSize: {
-                              lg: "3.5rem",
-                              md: "3rem",
-                              sm: "2rem",
-                              xs: "1.2rem",
-                            },
-                          }}
-                        >
-                          Eddie Villanueva
+                      <Stack direction="row" alignItems="center">
+                        <IconButton>
+                          <IconPhone />
+                        </IconButton>
+                        <Typography variant="body1">
+                          (+63) 962 764 2283
                         </Typography>
-                        <Grid
-                          container
-                          direction={{ sm: "row", xs: "column" }}
-                          spacing={1}
-                          justifyContent={"left"}
-                          className="text-left"
-                        >
-                          <Stack direction="row" spacing={2}>
-                            <IconPhone />
-                            <Typography variant="body1">
-                              (+63) 962 764 2283
-                            </Typography>
-                          </Stack>
-                          <Stack direction="row" spacing={2}>
-                            <IconMail />{" "}
-                            <Typography variant="body1">
-                              evillan0315@gmail.com
-                            </Typography>
-                          </Stack>
-                        </Grid>
-                        <Typography variant="caption" sx={{ pb: 2 }}>
-                          Open to hybrid or remote work with occasional onsite
-                          collaboration.
+                      </Stack>
+                      <Stack direction="row" alignItems="center">
+                        <IconButton>
+                          <IconMail />
+                        </IconButton>
+
+                        <Typography variant="body1">
+                          evillan0315@gmail.com
                         </Typography>
-                      </Grid>
+                      </Stack>
+
+                      <Stack direction="row" spacing={1} alignItems={"center"}>
+                        <Typography variant="body1">Connect with me</Typography>
+                        <IconButton>
+                          <IconBrandGithub />
+                        </IconButton>
+                        <IconButton>
+                          <LinkedInIcon />
+                        </IconButton>
+                        <IconButton>
+                          <FacebookIcon />
+                        </IconButton>
+                        <IconButton>
+                          <XIcon />
+                        </IconButton>
+                      </Stack>
+                      <Typography variant="caption">
+                        Open to hybrid or remote work with occasional onsite
+                        collaboration.
+                      </Typography>
                     </Grid>
-
+                  </Grid>
+                </Grid>
               </Grid>
+            </Grid>
 
+            <Grid size={{ md: 5, xs: 12 }} alignItems="flex-start">
+              <Box component="div">
+                <Typography
+                  variant="h2"
+                  sx={{
+                    fontWeight: 300,
+                  }}
+                  className={`${Caveat.className}`}
+                >
+                  Full-Stack Developer
+                </Typography>
+
+                <Typography variant="caption">
+                  I am a seasoned{" "}
+                  <span
+                    className={`${Caveat.className} text-lg text-orange-400`}
+                  >
+                    Software Engineer
+                  </span>{" "}
+                  with over 12 years of experience. Dedicated to driving
+                  innovation, streamlining workflows, and mentoring teams.
+                </Typography>
+                <Stack direction="row" spacing={2} sx={{ pt: 2 }}>
+                  <Button
+                    variant="outlined"
+                    color="inherit"
+                    onClick={handleDrawerOpen}
+                    endIcon={<DoubleArrowIcon />}
+                    size="small"
+                  >
+                    View Projects
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="inherit"
+                    onClick={handleDrawerContact}
+                    endIcon={<HiDocumentText />}
+                    size="small"
+                  >
+                    Download Resume
+                  </Button>
+                </Stack>
+              </Box>
+            </Grid>
+          </Grid>
+        </Container>
+
+        <Container className="h-screen py-6">
+          <Grid container direction="row" spacing={2}>
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Typography variant="h5" sx={{ fontWeight: 500 }}>
+                Building Scalable & Modern Applications with Cutting-Edge
+                Technologies
+              </Typography>
+
+              <TechnologySkillSpec />
+              <Typography variant="caption" color="inherit">
+                With expertise in both frontend and backend development, I build
+                robust solutions that are efficient, maintainable, and optimized
+                for the best user experience.
+              </Typography>
+              <Typography variant="body1">
+                Proficient in Node.js, Typescript, Python, and React, with a
+                proven ability to deliver robust and scalable solutions.
+              </Typography>
+            </Grid>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Grid
                 container
-                spacing={{ xs: 3, md: 4 }}
+                spacing={{ xs: 12, md: 6 }}
                 direction="row"
                 gap={2}
                 sx={{
@@ -180,47 +269,11 @@ const HeroSectionBackground: React.FC<Props> = () => {
                   Versatile Full-Stack Developer
                 </Typography>
                 <Typography variant="body1" color="inherit" sx={{ pr: 4 }}>
-                I leverage a powerful tech stack, including TypeScript, React, Next.js, Prisma, PostgreSQL, AWS, and more, to craft high-performance, scalable, and intuitive web applications. 
+                  I leverage a powerful tech stack, including TypeScript, React,
+                  Next.js, Prisma, PostgreSQL, AWS, and more, to craft
+                  high-performance, scalable, and intuitive web applications.
                 </Typography>
-                <Typography variant="body1" color="inherit" sx={{ pr: 4 }}>
-                With expertise in both frontend and backend development, I build robust solutions that are efficient, maintainable, and optimized for the best user experience. 
-                </Typography>
-                <Stack direction="row" spacing={2}>
-                  <Button
-                    color={"primary"}
-                    variant="contained"
-                    onClick={handleDrawerOpen}
-                    endIcon={<DoubleArrowIcon />}
-                    size="small"
-                    className={`${DM_Sans.className} rounded-xl   text-white font-bold shadow shadow-neutral-950`}
-                  >
-                    View Projects
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    onClick={handleDrawerContact}
-                    endIcon={<HiDocumentText />}
-                    size="small"
-                    className={`${DM_Sans.className} rounded-xl  text-white font-bold shadow shadow-neutral-950`}
-                  >
-                    Resume
-                  </Button>
-                  <Stack direction="row" spacing={1}>
-                  <IconButton>
-                    <IconBrandGithub />
-                  </IconButton>
-                  <IconButton>
-                    <LinkedInIcon />
-                  </IconButton>
-                  <IconButton>
-                    <FacebookIcon />
-                  </IconButton>
-                  <IconButton>
-                    <XIcon />
-                  </IconButton>
-                  
-                  </Stack>
-                </Stack>
+
                 <Drawer
                   content={loading ? <LoadingComponent /> : content} // Show loader or content
                   open={open}
@@ -232,23 +285,6 @@ const HeroSectionBackground: React.FC<Props> = () => {
                   Dedicated to driving innovation, streamlining workflows, and
                   mentoring teams.
                 </Typography>
-              </Box>
-            </Grid>
-
-            <Grid size={{ md: 5, xs: 12 }}>
-              <Box className="mx-auto" sx={{}}>
-              <Typography variant="h5" sx={{fontWeight:500}}>
-              Building Scalable & Modern Applications with Cutting-Edge Technologies
-              
-              </Typography>
-              
-     		<TechnologySkillSpec />
-     		<Typography variant="body1">
-
-              
-              Proficient in Node.js, Typescript, Python, and React, with a
-                  proven ability to deliver robust and scalable solutions.
-              </Typography>
               </Box>
             </Grid>
           </Grid>

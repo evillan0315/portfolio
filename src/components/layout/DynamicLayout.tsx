@@ -7,7 +7,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 import Box from "@mui/material/Box";
 
-
 //import useDrawer from "@/hooks/useDrawer";
 
 const DynamicLayout = ({
@@ -43,10 +42,10 @@ const DynamicLayout = ({
     <AppTheme disableCustomTheme={false}>
       <CssBaseline enableColorScheme />
       <Box
-        component="div"
+        component="main"
         className="h-screen w-full  bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden"
       >
-        <Box component="div" className=" z-20 w-full  h-screen overflow-auto">
+        <Box component="div" className="z-20 w-full h-screen overflow-auto">
           {children}
         </Box>
       </Box>

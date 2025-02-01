@@ -30,6 +30,7 @@
     "dev": "NODE_OPTIONS=--max-old-space-size=4096 next dev",
     "build": "NODE_OPTIONS=--max-old-space-size=4096 npx prisma generate && next build",
     "start": "NODE_OPTIONS=--max-old-space-size=4096 next start",
+    "export": "NODE_OPTIONS=--max-old-space-size=4096 next export",
     "lint": "NODE_OPTIONS=--max-old-space-size=4096 next lint",
     "db": "npx prisma format && npx prisma generate && npx prisma db push && npx prisma db pull && npx prisma generate",
     "seed": "ts-node prisma/seed.ts"

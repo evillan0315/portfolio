@@ -5,8 +5,7 @@ type Props = {
 };
 
 function FooterComponent({ text }: Props) {
-  console.log(text);
-  return <div>FooterComponent</div>;
+  return <div className="min-h-5 text-center">{text}</div>;
 }
 
 export default FooterComponent;

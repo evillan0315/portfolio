@@ -6,7 +6,7 @@ import { red, cyan } from "@mui/material/colors";
 import { green } from "./shared-theme/themePrimitives";
 
 const primary = cyan[600];
-const secondary = cyan[900]; // #ff4081
+const secondary = "#f97316"; // #ff4081
 
 export const Montserrat = localFont({
   src: [
@@ -129,14 +129,10 @@ const theme = createTheme({
     mode: "dark",
     primary: {
       main: primary,
-      light: "cyan",
-      dark: "#004ba0",
       contrastText: "#fff",
     },
     secondary: {
       main: secondary,
-      light: "#ff5c8d",
-      dark: "#9a0036",
       contrastText: "#fff",
     },
     error: {

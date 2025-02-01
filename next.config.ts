@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  //output: "export",
   webpack(config, { isServer }) {
     // Add CSS and PostCSS handling for ES module compatibility
     if (!isServer) {
@@ -16,6 +17,7 @@ const nextConfig: NextConfig = {
     CLOUDINARY_NAME: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
   },
   images: {
+    //unoptimized: true,
     //loader: "cloudinary",
     //path: `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/`,
     domains: [
