@@ -16,7 +16,7 @@ import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
-import TechnologySkillSpec from "@/components/portfolio/TechnologySkills";
+
 import { IconBrandGithub, IconMail, IconPhone } from "@tabler/icons-react";
 import { HiDocumentText } from "react-icons/hi2";
 import IconButton from "@mui/material/IconButton";
@@ -24,6 +24,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import XIcon from "@mui/icons-material/X";
 import Logo from "./Logo";
+
 type Props = {
   primaryButtonClick?: () => void;
 };
@@ -64,16 +65,14 @@ const HeroSectionBackground: React.FC<Props> = () => {
   };
   return (
     <>
-      <Box>
-        <Container className="h-screen py-6">
-          <Grid size={12}>
-            <Box className="py-2">
-              <WordProcessor text={headline} animate headline />
-              <Box component="div" sx={{ minHeight: "120px" }}>
-                <WordProcessor text={words} animate />
-              </Box>
+      <Box className="my-6 xs:mb-10 relative z-20">
+        <Container>
+          <Box component="div">
+            <WordProcessor text={headline} animate headline />
+            <Box component="div" sx={{ minHeight: "120px" }}>
+              <WordProcessor text={words} animate />
             </Box>
-          </Grid>
+          </Box>
           <Grid
             container
             direction="row"
@@ -90,7 +89,6 @@ const HeroSectionBackground: React.FC<Props> = () => {
                 spacing={2}
                 sx={{
                   mb: 2,
-                  justifyContent: "space-between",
                   alignItems: "center",
                 }}
               >
@@ -187,11 +185,13 @@ const HeroSectionBackground: React.FC<Props> = () => {
 
                 <Typography variant="caption">
                   I am a seasoned{" "}
-                  <span
-                    className={`${Caveat.className} text-lg text-orange-400`}
+                  <Box
+                    component="span"
+                    color={"secondary"}
+                    className={`${Caveat.className} text-lg`}
                   >
                     Software Engineer
-                  </span>{" "}
+                  </Box>{" "}
                   with over 12 years of experience. Dedicated to driving
                   innovation, streamlining workflows, and mentoring teams.
                 </Typography>
@@ -220,75 +220,11 @@ const HeroSectionBackground: React.FC<Props> = () => {
           </Grid>
         </Container>
 
-        <Container className="h-screen py-6">
-          <Grid container direction="row" spacing={2}>
-            <Grid size={{ xs: 12, md: 6 }}>
-              <Typography variant="h5" sx={{ fontWeight: 500 }}>
-                Building Scalable & Modern Applications with Cutting-Edge
-                Technologies
-              </Typography>
-
-              <TechnologySkillSpec />
-              <Typography variant="caption" color="inherit">
-                With expertise in both frontend and backend development, I build
-                robust solutions that are efficient, maintainable, and optimized
-                for the best user experience.
-              </Typography>
-              <Typography variant="body1">
-                Proficient in Node.js, Typescript, Python, and React, with a
-                proven ability to deliver robust and scalable solutions.
-              </Typography>
-            </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
-              <Grid
-                container
-                spacing={{ xs: 12, md: 6 }}
-                direction="row"
-                gap={2}
-                sx={{
-                  justifyContent: "flex-start",
-                  alignItems: "flex-start",
-                  mt: 2,
-                }}
-              >
-                <Typography
-                  variant="h2"
-                  sx={{
-                    fontWeight: 300,
-                    md: {
-                      fontSize: "1.5rem",
-                    },
-                    sm: {
-                      fontSize: "1.1rem",
-                    },
-                    xs: {
-                      fontSize: ".8rem",
-                    },
-                  }}
-                >
-                  Versatile Full-Stack Developer
-                </Typography>
-                <Typography variant="body1" color="inherit" sx={{ pr: 4 }}>
-                  I leverage a powerful tech stack, including TypeScript, React,
-                  Next.js, Prisma, PostgreSQL, AWS, and more, to craft
-                  high-performance, scalable, and intuitive web applications.
-                </Typography>
-
-                <Drawer
-                  content={loading ? <LoadingComponent /> : content} // Show loader or content
-                  open={open}
-                  onClose={handleDrawerClose}
-                />
-              </Grid>
-              <Box sx={{ mt: 2 }}>
-                <Typography variant="caption">
-                  Dedicated to driving innovation, streamlining workflows, and
-                  mentoring teams.
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid>
-        </Container>
+        <Drawer
+          content={loading ? <LoadingComponent /> : content} // Show loader or content
+          open={open}
+          onClose={handleDrawerClose}
+        />
       </Box>
     </>
   );

@@ -45,13 +45,15 @@ const DynamicLayout = ({
         component="main"
         className="h-screen w-full  bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden"
       >
-        <Box component="div" className="z-20 w-full h-screen overflow-auto">
+        <Box component="div" className="w-full h-screen overflow-auto">
           {children}
-        </Box>
-      </Box>
-      <Box component="footer">
+          <Box component="footer">
         <FooterComponent />
       </Box>
+        </Box>
+        
+      </Box>
+      
     </AppTheme>
   );
 };

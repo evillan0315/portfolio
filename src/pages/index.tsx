@@ -9,28 +9,28 @@ import TechnologySkillSpec from "@/components/portfolio/TechnologySkills";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
+
 import { Spotlight } from "@/components/ui/spotlightv2";
 import BackgroundLinesSection from "@/components/BackgroundLinesSection";
 import GitHubRepoList from "@/components/github/GithubRepoList";
 const HomePage = () => {
   return (
     <Box>
-      <Spotlight />
-      <BackgroundLinesSection />
-      <Container className="relative z-10 h-screen w-full mx-auto">
-        <Box sx={{ py: 6 }}>
-          <HeroSectionBackground />
-        </Box>
-        <Divider />
-        <Box sx={{ pt: 6 }}>
-          <TechnologySkillSpec />
-          <InfiniteMovingCards
-            skills={SkillsComponentData.props}
-            direction="left"
-            speed="slow"
-          />
-        </Box>
+      {/* Background starts. This must stay at the top */}
+      <Box>
+        <Spotlight />
+        <BackgroundLinesSection />
+      </Box>
+      {/* End of background. Do not remove the h-screen and z-index below */}
+      <Box className="h-screen relative z-20">
+        <HeroSectionBackground />
+        <TechnologySkillSpec />
+        <InfiniteMovingCards
+          skills={SkillsComponentData.props}
+          direction="left"
+          speed="slow"
+        />
+
         <Box sx={{ py: 6 }}>
           <Typography variant="h3" sx={{ mb: 6 }}>
             Github Repositories
@@ -41,8 +41,7 @@ const HomePage = () => {
         <Box sx={{ py: 6 }}>
           <BentoGridProject />
         </Box>
-        <Divider />
-      </Container>
+      </Box>
     </Box>
   );
 };
