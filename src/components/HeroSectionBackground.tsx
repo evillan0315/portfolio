@@ -3,7 +3,7 @@
 import React, { useCallback, useState } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid2";
-
+import Card from "@mui/material/Card";
 import Button from "@mui/material/Button";
 import Drawer from "./ui/drawer";
 import MasonryImageList from "./ui/masonry-images";
@@ -34,7 +34,7 @@ const HeroSectionBackground: React.FC<Props> = () => {
   const [loading, setLoading] = useState(false); // To manage loading state
   const [content, setContent] = useState<React.ReactNode | null>(null);
 
-  const headline = `Build Scalable & Modern Web`;
+  const headline = `Build Scalable & Modern Applications`;
   const words = `I specialize in building dynamic, scalable, and high-performance web applications. From intuitive frontends to powerful backends, my full stack expertise ensures seamless functionality, modern design, and future-ready solutions tailored to your needs.`;
   //const words2 = `Dedicated to driving innovation, streamlining workflows, and mentoring teams to exceed business objectives`
 
@@ -65,109 +65,118 @@ const HeroSectionBackground: React.FC<Props> = () => {
   };
   return (
     <>
-      <Box className="my-6 xs:mb-10 relative z-20">
+      <Box className="py-12 md:py-20">
         <Container>
-          <Box component="div">
-            <WordProcessor text={headline} animate headline />
-            <Box component="div" sx={{ minHeight: "120px" }}>
-              <WordProcessor text={words} animate />
-            </Box>
-          </Box>
-          <Grid
-            container
-            direction="row"
-            spacing={4}
-            sx={{
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+          <Grid container direction="row" spacing={4}>
+            <Grid size={{ xs: 12 }} component="div" className="pb-6">
+              <Box component="div" className="text-justify max-w-5xl mx-auto">
+                <WordProcessor text={headline} animate headline />
+              </Box>
+              <Box component="div" className="text-justify max-w-5xl mx-auto">
+                <WordProcessor text={words} animate />
+              </Box>
+            </Grid>
             <Grid size={{ md: 7, xs: 12 }}>
               <Grid
                 container
                 direction="row"
-                spacing={2}
                 sx={{
-                  mb: 2,
-                  alignItems: "center",
+                  justifyContent: "center",
+                  alignItems: "baseline",
                 }}
               >
-                <Grid
-                  container
-                  direction={{ sm: "row", xs: "column" }}
-                  spacing={2}
-                  alignItems="center"
-                  sx={{
-                    mb: 2,
-                  }}
+                <Card
+                  component="div"
+                  variant="outlined"
+                  sx={{ width: "100%", background: "none" }}
                 >
-                  <Grid size={{ md: 3, sm: 4, xs: 12 }}>
-                    <Logo width={130} height={130} />
-                  </Grid>
-                  <Grid size={{ md: 9, sm: 8, xs: 12 }}>
-                    <Typography
-                      variant="h1"
-                      color="primary"
-                      sx={{
-                        fontWeight: 500,
-                        fontSize: {
-                          lg: "3rem",
-                          md: "2rem",
-                          sm: "1.7rem",
-                          xs: "1.2rem",
-                        },
-                      }}
-                      className={`${DM_Sans.className}`}
-                    >
-                      Eddie Villanueva
-                    </Typography>
+                  <Grid container spacing={2} alignItems="center">
+                    <Grid size={{ md: 3, xs: 12 }}>
+                      <Box className="w-[130px] md:w-auto mx-auto">
+                        <Logo width={130} height={130} />
+                      </Box>
+                    </Grid>
                     <Grid
-                      container
-                      direction={{ sm: "row", xs: "column" }}
-                      spacing={1}
-                      justifyContent={"left"}
-                      className="text-left"
+                      size={{ md: 9, xs: 12 }}
+                      className="text-center mx-auto md:text-left"
                     >
-                      <Stack direction="row" alignItems="center">
-                        <IconButton>
-                          <IconPhone />
-                        </IconButton>
-                        <Typography variant="body1">
-                          (+63) 962 764 2283
-                        </Typography>
-                      </Stack>
-                      <Stack direction="row" alignItems="center">
-                        <IconButton>
-                          <IconMail />
-                        </IconButton>
-
-                        <Typography variant="body1">
-                          evillan0315@gmail.com
-                        </Typography>
-                      </Stack>
-
-                      <Stack direction="row" spacing={1} alignItems={"center"}>
-                        <Typography variant="body1">Connect with me</Typography>
-                        <IconButton>
-                          <IconBrandGithub />
-                        </IconButton>
-                        <IconButton>
-                          <LinkedInIcon />
-                        </IconButton>
-                        <IconButton>
-                          <FacebookIcon />
-                        </IconButton>
-                        <IconButton>
-                          <XIcon />
-                        </IconButton>
-                      </Stack>
-                      <Typography variant="caption">
-                        Open to hybrid or remote work with occasional onsite
-                        collaboration.
+                      <Typography
+                        variant="h3"
+                        color="primary"
+                        sx={{
+                          fontWeight: 700,
+                        }}
+                        className={`${Caveat.className} caveat_font sm:text-5xl md:text-7xl antialiased`}
+                      >
+                        Eddie Villanueva
                       </Typography>
+
+                      <Grid
+                        container
+                        direction={"row"}
+                        spacing={1}
+                        justifyContent={{ xs: "center", md: "left" }}
+                        className="text-sm w-full"
+                      >
+                        <Grid size={{ md: 6 }}>
+                          <Stack
+                            direction="row"
+                            alignItems="center"
+                            spacing={1}
+                          >
+                            <IconButton disableRipple={true} sx={{ p: 0 }}>
+                              <IconPhone />
+                            </IconButton>
+                            <Typography variant="caption">
+                              (+63) 962 764 2283
+                            </Typography>
+                          </Stack>
+                        </Grid>
+                        <Grid size={{ md: 6 }}>
+                          <Stack
+                            direction="row"
+                            alignItems="center"
+                            spacing={1}
+                          >
+                            <IconButton disableRipple={true} sx={{ p: 0 }}>
+                              <IconMail />
+                            </IconButton>
+
+                            <Typography variant="caption">
+                              evillan0315@gmail.com
+                            </Typography>
+                          </Stack>
+                        </Grid>
+                        <Typography variant="caption">
+                          Open to hybrid or remote work with occasional onsite
+                          collaboration.
+                        </Typography>
+
+                        <Stack
+                          direction="row"
+                          spacing={1}
+                          alignItems={"center"}
+                        >
+                          <Typography variant="body1">
+                            Connect with me
+                          </Typography>
+                          <IconButton disableRipple={true} sx={{ p: 0 }}>
+                            <IconBrandGithub />
+                          </IconButton>
+                          <IconButton disableRipple={true} sx={{ p: 0 }}>
+                            <LinkedInIcon />
+                          </IconButton>
+                          <IconButton disableRipple={true} sx={{ p: 0 }}>
+                            <FacebookIcon />
+                          </IconButton>
+                          <IconButton disableRipple={true} sx={{ p: 0 }}>
+                            <XIcon />
+                          </IconButton>
+                        </Stack>
+                      </Grid>
                     </Grid>
                   </Grid>
-                </Grid>
+                </Card>
               </Grid>
             </Grid>
 
@@ -178,20 +187,20 @@ const HeroSectionBackground: React.FC<Props> = () => {
                   sx={{
                     fontWeight: 300,
                   }}
-                  className={`${Caveat.className}`}
+                  className={`${Caveat.className} caveat_font`}
                 >
-                  Full-Stack Developer
+                  Software Engineer
                 </Typography>
 
-                <Typography variant="caption">
+                <Typography variant="caption" className="antialiased">
                   I am a seasoned{" "}
-                  <Box
+                  <Typography
                     component="span"
                     color={"secondary"}
-                    className={`${Caveat.className} text-lg`}
+                    className={`${Caveat.className} text-lg  caveat_font`}
                   >
                     Software Engineer
-                  </Box>{" "}
+                  </Typography>{" "}
                   with over 12 years of experience. Dedicated to driving
                   innovation, streamlining workflows, and mentoring teams.
                 </Typography>
@@ -201,6 +210,7 @@ const HeroSectionBackground: React.FC<Props> = () => {
                     color="inherit"
                     onClick={handleDrawerOpen}
                     endIcon={<DoubleArrowIcon />}
+                    className={`${DM_Sans.className}`}
                     size="small"
                   >
                     View Projects
@@ -209,10 +219,11 @@ const HeroSectionBackground: React.FC<Props> = () => {
                     variant="outlined"
                     color="inherit"
                     onClick={handleDrawerContact}
-                    endIcon={<HiDocumentText />}
+                    startIcon={<HiDocumentText />}
+                    className={`${DM_Sans.className}`}
                     size="small"
                   >
-                    Download Resume
+                    Resume
                   </Button>
                 </Stack>
               </Box>

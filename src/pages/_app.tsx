@@ -107,6 +107,7 @@ const NAVIGATION: Navigation = [
 ];
 function AppLayout({ children }: { children: React.ReactNode }) {
   const { data: session } = useSession();
+
   return (
     <React.Fragment>
       <SEOHead />

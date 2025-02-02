@@ -6,6 +6,10 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid2";
 import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Link from "@mui/material/Link";
+
+import { useSession } from "next-auth/react";
 import Stack from "@mui/material/Stack";
 import Pagination from "@mui/material/Pagination";
 
@@ -15,12 +19,16 @@ import axios from "axios";
 import GithubDialogComponent from "./DialogComponent";
 import { GitHubRepo } from "@/types/github";
 import DateFormat from "../DateFormat";
-import { CardActionArea } from "@mui/material";
+//import { CardActionArea } from "@mui/material";
 import LoadingComponent from "../LoadingComponent";
+import { IconButton, Tooltip } from "@mui/material";
+import { MdVisibility } from "react-icons/md";
+import { IconEdit, IconTrash } from "@tabler/icons-react";
 // Type for a GitHub repo
 
 interface GitHubRepoListProps {
   sortBy?: "name" | "date"; // Sorting criteria
+  openDial?: boolean;
 }
 
 const GitHubRepoList: React.FC<GitHubRepoListProps> = ({ sortBy }) => {
@@ -29,9 +37,12 @@ const GitHubRepoList: React.FC<GitHubRepoListProps> = ({ sortBy }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [action, setAction] = useState("");
+  const { data: session } = useSession();
+
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const reposPerPage = 9;
+  const reposPerPage = 6;
   if (!sortBy) sortBy = "date";
   const fetchRepos = useCallback(async () => {
     setIsLoading(true);
@@ -75,26 +86,24 @@ const GitHubRepoList: React.FC<GitHubRepoListProps> = ({ sortBy }) => {
   const handleCloseDialog = () => {
     setOpenDialog(false);
     setSelectedRepo(null);
+    setAction("");
   };
 
   // Handle repo deletion
-  /* const handleDeleteRepo = async (repoId: number) => {
-    if (!window.confirm("Are you sure you want to delete this repository?"))
-      return;
-
-    try {
-      await axios.delete(`/api/cloud/github/${repoId}`);
-      setRepos(repos.filter((repo) => repo.id !== repoId));
-    } catch (error) {
-      console.error("Error deleting repository:", error);
-    }
+  const handleDeleteRepo = async (repo: GitHubRepo) => {
+    setAction("Delete");
+    setSelectedRepo(repo);
+    setOpenDialog(true);
   };
 
   // Handle repo update (stub function)
   const handleUpdateRepo = (repo: GitHubRepo) => {
     console.log("Update repo:", repo);
     // You can add functionality to open an edit dialog here.
-  }; */
+    setAction("Update");
+    setSelectedRepo(repo);
+    setOpenDialog(true);
+  };
 
   // Handle pagination change
   const handlePageChange = (
@@ -108,79 +117,93 @@ const GitHubRepoList: React.FC<GitHubRepoListProps> = ({ sortBy }) => {
   const indexOfLastRepo = currentPage * reposPerPage;
   const indexOfFirstRepo = indexOfLastRepo - reposPerPage;
   const currentRepos = repos.slice(indexOfFirstRepo, indexOfLastRepo);
+
+  const splitE = session ? session?.user.email.split("@") : [];
   //if (!selectedRepo) return null; // Handle null case
   return (
-    <Box>
+    <Container>
       {isLoading && <LoadingComponent message={message} />}
+
       <Grid container spacing={1}>
         {currentRepos.map((repo) => (
-          <Grid key={repo.id} size={4}>
+          <Grid key={repo.id} size={{ md: 4, sm: 6, xs: 12 }}>
             <Card sx={{ p: 0 }} className="h-[100%]">
-              <CardActionArea onClick={() => handleRepoClick(repo)}>
-                <CardContent sx={{ p: 2 }}>
-                  <Typography
-                    variant="h6"
-                    className="line-clamp-1"
-                    sx={{ fontSize: "1rem", fontWeight: 200 }}
-                  >
+              <CardContent sx={{ p: 2 }}>
+                <Typography
+                  variant="h6"
+                  className="line-clamp-1"
+                  sx={{ fontSize: "1rem", fontWeight: 200 }}
+                >
+                  <Link href={repo?.html_url} target="_blank">
                     {repo.name}
+                  </Link>
+                </Typography>
+                <Typography variant="caption" sx={{ fontWeight: 200, mb: 2 }}>
+                  {repo?.full_name}
+                </Typography>
+                <Box className="h-10">
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    className="line-clamp-1"
+                    sx={{ fontSize: ".7rem", fontWeight: 200 }}
+                  >
+                    {repo.description || "No description available."}
                   </Typography>
-                  <Typography variant="caption" sx={{ fontWeight: 200, mb: 2 }}>
-                    {repo?.full_name}
+
+                  <Typography
+                    variant="caption"
+                    display="block"
+                    color="textSecondary"
+                    sx={{ fontSize: ".7rem", fontWeight: 200 }}
+                  >
+                    Last Updated:{" "}
+                    <DateFormat date={repo?.updated_at} ago={true} />
                   </Typography>
-                  <Box className="h-10">
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      className="line-clamp-1"
-                      sx={{ fontSize: ".7rem", fontWeight: 200 }}
-                    >
-                      {repo.description || "No description available."}
-                    </Typography>
+                </Box>
 
-                    <Typography
-                      variant="caption"
-                      display="block"
-                      color="textSecondary"
-                      sx={{ fontSize: ".7rem", fontWeight: 200 }}
-                    >
-                      Last Updated:{" "}
-                      <DateFormat date={repo?.updated_at} ago={true} />
-                    </Typography>
-                  </Box>
-
-                  {/* Icon Buttons */}
-                  {/* <Box display="flex" justifyContent="flex-end" gap={1} mt={1}>
-                    <Tooltip title="View Details">
-                      <IconButton
-                        color="primary"
-                        size="small"
-                        onClick={() => handleRepoClick(repo)}
+                {/* Icon Buttons */}
+                {session && (
+                  <>
+                    {splitE[0] === repo?.owner.login && (
+                      <Box
+                        display="flex"
+                        justifyContent="flex-end"
+                        gap={1}
+                        mt={1}
                       >
-                        <VisibilityIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Update Repository">
-                      <IconButton
-                        color="info"
-                        size="small"
-                        onClick={() => handleUpdateRepo(repo)}
-                      >
-                        <EditIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Delete Repository">
-                      <IconButton
-                        color="error"
-                        size="small"
-                        onClick={() => handleDeleteRepo(repo.id)}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </Tooltip>
-                  </Box> */}
-                </CardContent>
-              </CardActionArea>
+                        <Tooltip title="View Details">
+                          <IconButton
+                            color="primary"
+                            size="small"
+                            onClick={() => handleRepoClick(repo)}
+                          >
+                            <MdVisibility />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Update Repository">
+                          <IconButton
+                            color="info"
+                            size="small"
+                            onClick={() => handleUpdateRepo(repo)}
+                          >
+                            <IconEdit />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Delete Repository">
+                          <IconButton
+                            color="error"
+                            size="small"
+                            onClick={() => handleDeleteRepo(repo)}
+                          >
+                            <IconTrash />
+                          </IconButton>
+                        </Tooltip>
+                      </Box>
+                    )}
+                  </>
+                )}
+              </CardContent>
             </Card>
           </Grid>
         ))}
@@ -203,60 +226,10 @@ const GitHubRepoList: React.FC<GitHubRepoListProps> = ({ sortBy }) => {
         selectedRepo={selectedRepo as GitHubRepo}
         openDialog={openDialog}
         handleCloseDialog={handleCloseDialog}
+        action={action || undefined}
+        sortBy={sortBy}
       />
-      {/*       <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>{selectedRepo?.name}</DialogTitle>
-        <DialogContent>
-          <Typography variant="body1" gutterBottom>
-            <strong>Description:</strong>{" "}
-            {selectedRepo?.description || "No description available."}
-          </Typography>
-          <Typography variant="body1">
-            <strong>Created At:</strong>{" "}
-            {DateTime.fromISO(selectedRepo.created_at).toLocaleString(
-              DateTime.DATETIME_MED
-            )}
-          </Typography>
-          <Typography variant="body1">
-            <strong>Updated At:</strong>{" "}
-            {DateTime.fromISO(selectedRepo?.updated_at).toLocaleString(
-              DateTime.DATETIME_MED
-            )}
-          </Typography>
-          <Typography variant="body1">
-            <strong>Created At (Time Ago):</strong>{" "}
-            {DateTime.fromISO(selectedRepo?.created_at).toRelative()}
-          </Typography>
-          <Typography variant="body1">
-            <strong>Updated At (Time Ago):</strong>{" "}
-            {DateTime.fromISO(selectedRepo?.updated_at).toRelative()}
-          </Typography>
-          <Typography variant="body1">
-            <strong>Private:</strong> {selectedRepo?.private ? "Yes" : "No"}
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Stack direction="row" spacing={2}>
-            <Button
-              variant="outlined"
-              startIcon={<CloseIcon />}
-              onClick={handleCloseDialog}
-              color="primary"
-            >
-              Close
-            </Button>
-            <Button
-              variant="contained"
-              endIcon={<SendIcon />}
-              onClick={() => window.open(selectedRepo?.html_url, "_blank")}
-              color="primary"
-            >
-              Open in GitHub
-            </Button>
-          </Stack>
-        </DialogActions>
-      </Dialog> */}
-    </Box>
+    </Container>
   );
 };
 

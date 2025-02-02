@@ -2,14 +2,12 @@
 import * as React from "react";
 //import prisma from "@/lib/prisma";
 import BentoGridProject from "@/components/BentoGridProject";
-import { InfiniteMovingCards } from "@/components/InfiniMovingCards";
-import { SkillsComponentData } from "@/lib/components";
 import HeroSectionBackground from "@/components/HeroSectionBackground";
 import TechnologySkillSpec from "@/components/portfolio/TechnologySkills";
 import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
-import Typography from "@mui/material/Typography";
 
+import Typography from "@mui/material/Typography";
+import AccountCustom from "@/components/Account";
 import { Spotlight } from "@/components/ui/spotlightv2";
 import BackgroundLinesSection from "@/components/BackgroundLinesSection";
 import GitHubRepoList from "@/components/github/GithubRepoList";
@@ -23,22 +21,68 @@ const HomePage = () => {
       </Box>
       {/* End of background. Do not remove the h-screen and z-index below */}
       <Box className="h-screen relative z-20">
+        <AccountCustom />
         <HeroSectionBackground />
         <TechnologySkillSpec />
-        <InfiniteMovingCards
-          skills={SkillsComponentData.props}
-          direction="left"
-          speed="slow"
-        />
-
         <Box sx={{ py: 6 }}>
-          <Typography variant="h3" sx={{ mb: 6 }}>
-            Github Repositories
+          <Typography
+            variant="h2"
+            sx={{
+              fontWeight: 500,
+              textAlign: "center",
+              mb: 4,
+              md: {
+                fontSize: "1.5rem",
+              },
+              sm: {
+                fontSize: "1.1rem",
+              },
+              xs: {
+                fontSize: ".8rem",
+              },
+            }}
+          >
+            <Typography
+              component="span"
+              color="primary"
+              variant="h1"
+              className="caveat_font pr-2"
+            >
+              Github
+            </Typography>{" "}
+            Repositories
           </Typography>
           <GitHubRepoList />
         </Box>
-        <Divider />
+
         <Box sx={{ py: 6 }}>
+          <Typography
+            variant="h2"
+            sx={{
+              fontWeight: 500,
+              textAlign: "center",
+              mb: 4,
+              md: {
+                fontSize: "1.5rem",
+              },
+              sm: {
+                fontSize: "1.1rem",
+              },
+              xs: {
+                fontSize: ".8rem",
+              },
+            }}
+          >
+            <Typography
+              component="span"
+              color="primary"
+              variant="h1"
+              className="caveat_font pr-2"
+            >
+              Notable
+            </Typography>{" "}
+            Projects
+          </Typography>
           <BentoGridProject />
         </Box>
       </Box>

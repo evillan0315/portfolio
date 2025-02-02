@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { Box, Container, Dialog } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import PrimarySearchAppBar from "@/components/PrimarySearchAppBar";
 import GitHubRepoList from "@/components/github/GithubRepoList";
 import PageTopBar from "@/components/PageTopBar";
-import CreateRepoForm from "@/components/github/CreateRepoForm";
 
+import GithubDialogComponent from "@/components/github/DialogComponent";
 import RefreshIcon from "@mui/icons-material/RefreshRounded";
 import SettingIcon from "@mui/icons-material/SettingsApplicationsRounded";
 
@@ -84,12 +84,13 @@ const GithubRepoPage = () => {
       </Container>
 
       {/* Create Repo Dialog */}
-      <Dialog open={openCreateRepoDialog} onClose={handleCloseCreateRepoDialog}>
-        <CreateRepoForm
-          handleCloseDialog={handleCloseCreateRepoDialog}
-          action={"Add"}
-        />
-      </Dialog>
+      <GithubDialogComponent
+        selectedRepo={undefined}
+        openDialog={openCreateRepoDialog}
+        handleCloseDialog={handleCloseCreateRepoDialog}
+        action={"Add"}
+        sortBy={sortBy}
+      />
     </Box>
   );
 };

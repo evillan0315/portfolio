@@ -67,21 +67,35 @@ export default NextAuth({
     },
     async session({ session }) {
       if (session.user?.email) {
-        const userD = await prisma.user.findFirst({
-          where: { email: session.user?.email },
+        const userD = await prisma.user.findUnique({
+          where: { email: session.user.email },
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true, // Example: Fetching user role
+            image: true,
+          },
         });
-        if (userD) {
-          session.user = userD;
-        }
 
-        return session;
+        if (userD && userD.role) {
+          session.user = {
+            ...session.user,
+            id: userD.id,
+            role: userD?.role.name, // Merge user data from database into session
+          };
+        }
       }
 
-      //const nSession = { ...session, user };
-      return session; // The return type will match the one returned in `useSession()`
+      return session;
     },
-    jwt({ token }) {
-      return token; // The return type will match the one returned in `useSession()`
+    jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.role = user.role;
+        token.email = user.email;
+      }
+      return token;
     },
   },
 });

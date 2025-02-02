@@ -8,7 +8,8 @@ import Typography from "@mui/material/Typography";
 import { iconMap } from "../InfiniMovingCards";
 import IconButton from "@mui/material/IconButton";
 import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
-
+import { InfiniteMovingCards } from "@/components/InfiniMovingCards";
+import { SkillsComponentData } from "@/lib/components";
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
 ))(({ theme }) => ({
@@ -22,58 +23,34 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
 }));
 const TechnologySkillSpec = () => {
   return (
-    <Container className="py-6">
-      <Grid container direction="row" spacing={2}>
-        <Grid size={{ xs: 12, md: 6 }}>
-          <Typography variant="h5" sx={{ fontWeight: 500 }}>
-            Building Scalable & Modern Applications with Cutting-Edge
-            Technologies
-          </Typography>
-
-          <Typography variant="caption" color="inherit">
-            With expertise in both frontend and backend development, I build
-            robust solutions that are efficient, maintainable, and optimized for
-            the best user experience.
-          </Typography>
-          <Typography variant="body1">
-            Proficient in Node.js, Typescript, Python, and React, with a proven
-            ability to deliver robust and scalable solutions.
-          </Typography>
-        </Grid>
-        <Grid size={{ xs: 12, md: 6 }}>
-          <Grid container spacing={{ xs: 2, md: 4 }} direction="row">
-            <Typography
-              variant="h2"
-              sx={{
-                fontWeight: 300,
-                md: {
-                  fontSize: "1.5rem",
-                },
-                sm: {
-                  fontSize: "1.1rem",
-                },
-                xs: {
-                  fontSize: ".8rem",
-                },
-              }}
-            >
-              Versatile Full-Stack Developer
-            </Typography>
-            <Typography variant="body1" color="inherit" sx={{ pr: 4 }}>
-              I leverage a powerful tech stack, including TypeScript, React,
-              Next.js, Prisma, PostgreSQL, AWS, and more, to craft
-              high-performance, scalable, and intuitive web applications.
-            </Typography>
-          </Grid>
-          <Box sx={{ mt: 2 }}>
-            <Typography variant="caption">
-              Dedicated to driving innovation, streamlining workflows, and
-              mentoring teams.
-            </Typography>
-          </Box>
-        </Grid>
-      </Grid>
-      <Box component="div">
+    <Container className="py-12">
+      <Typography
+        variant="h2"
+        sx={{
+          fontWeight: 500,
+          textAlign: "center",
+          md: {
+            fontSize: "1.5rem",
+          },
+          sm: {
+            fontSize: "1.1rem",
+          },
+          xs: {
+            fontSize: ".8rem",
+          },
+        }}
+      >
+        <Typography
+          component="span"
+          color="primary"
+          variant="h1"
+          className="caveat_font pr-2"
+        >
+          Powerful
+        </Typography>{" "}
+        Cutting-edge Technologies
+      </Typography>
+      <Box component="div" className="py-2">
         <Grid
           container
           direction="column"
@@ -304,6 +281,79 @@ const TechnologySkillSpec = () => {
           </Grid>
         </Grid>
       </Box>
+      <Grid container direction="row" spacing={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
+          <Grid container direction="row">
+            <Typography
+              variant="h3"
+              className="caveat_font"
+              sx={{
+                fontWeight: 300,
+                md: {
+                  fontSize: "1.5rem",
+                },
+                sm: {
+                  fontSize: "1.1rem",
+                },
+                xs: {
+                  fontSize: ".8rem",
+                },
+              }}
+            >
+              Front/Backend Developer
+            </Typography>
+            <Typography variant="body1" color="inherit">
+              With expertise in both frontend and backend development, I build
+              robust solutions that are efficient, maintainable, and optimized
+              for the best user experience.
+            </Typography>
+          </Grid>
+          <Box sx={{ mt: 2 }}>
+            <Typography variant="caption">
+              Proficient in Node.js, Typescript, Python, and React, with a
+              proven ability to deliver robust and scalable solutions.
+            </Typography>
+          </Box>
+        </Grid>
+        <Grid size={{ xs: 12, md: 6 }}>
+          <Grid container direction="row">
+            <Typography
+              variant="h3"
+              className="caveat_font"
+              sx={{
+                fontWeight: 300,
+                md: {
+                  fontSize: "1.5rem",
+                },
+                sm: {
+                  fontSize: "1.1rem",
+                },
+                xs: {
+                  fontSize: ".8rem",
+                },
+              }}
+            >
+              Versatile Full-Stack Developer
+            </Typography>
+            <Typography variant="body1" color="inherit">
+              I leverage a powerful tech stack, including TypeScript, React,
+              Next.js, Prisma, PostgreSQL, AWS, and more, to craft
+              high-performance, scalable, and intuitive web applications.
+            </Typography>
+          </Grid>
+          <Box sx={{ mt: 2 }}>
+            <Typography variant="caption">
+              Dedicated to driving innovation, streamlining workflows, and
+              mentoring teams.
+            </Typography>
+          </Box>
+        </Grid>
+      </Grid>
+      <InfiniteMovingCards
+        skills={SkillsComponentData.props}
+        direction="left"
+        speed="slow"
+      />
     </Container>
   );
 };

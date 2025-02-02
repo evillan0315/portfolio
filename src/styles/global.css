@@ -10,3 +10,9 @@ body {
 img {
   filter: inherit !important;
 }
+.caveat_font {
+  font-family: "Caveat" !important;
+}
+.dm_sans_font {
+  font-family: "DM_Sans" !important;
+}

@@ -2,6 +2,7 @@
 import { cn } from "../lib/utils";
 import React from "react";
 import { BentoGrid, BentoGridItem } from "./ui/bento-grid";
+import Container from "@mui/material/Container";
 import {
   IconBoxAlignRightFilled,
   IconClipboardCopy,
@@ -19,6 +20,7 @@ interface BentoGridProjectProps {
 
 const BentoGridProject: React.FC<BentoGridProjectProps> = () => {
   return (
+  <Container>
     <BentoGrid className="max-w-4xl mx-auto md:auto-rows-[20rem]">
       {items.map((item, i) => (
         <BentoGridItem
@@ -31,6 +33,7 @@ const BentoGridProject: React.FC<BentoGridProjectProps> = () => {
         />
       ))}
     </BentoGrid>
+   </Container>
   );
 };
 

@@ -13,37 +13,37 @@ import { AlertColor } from "@mui/material/Alert";
 import LoadingComponent from "../LoadingComponent";
 import { IconPlus } from "@tabler/icons-react";
 import CloseIcon from "@mui/icons-material/CloseRounded";
-type GithubType = {
-  name: string;
-  description: string;
-  homepage: string;
-  isPrivate: boolean;
-};
-interface CreateRepoFormProps {
-  data?: GithubType;
+import { GitHubRepo } from "@/types/github";
+
+interface RepoFormProps {
+  data?: GitHubRepo | null;
+  action?: string;
   handleCloseDialog: () => void;
-  action: string | null;
+  sortBy?: string;
 }
-const CreateRepoForm: React.FC<CreateRepoFormProps> = ({
+const RepoForm: React.FC<RepoFormProps> = ({
   data,
-  handleCloseDialog,
   action,
+  handleCloseDialog,
+  sortBy,
 }) => {
-  const defaultData: GithubType = {
+  const defaultData: GitHubRepo = {
     name: "",
     description: "",
     homepage: "",
     isPrivate: false,
+    created_at: "",
+    updated_at: "",
   };
 
-  const [formData, setFormData] = useState<GithubType>(
-    !data ? defaultData : data
-  );
+  const [formData, setFormData] = useState(!data ? defaultData : data);
   const [isLoading, setIsLoading] = useState(false);
   const [notify, setNotify] = useState(false);
   const [message, setMessage] = useState("");
   const [severity, setSeverity] = useState("success");
+  const [sortingBy, setSortingBy] = useState(sortBy);
 
+  console.log(sortingBy);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Check if form is not null before updating
     e.preventDefault();
@@ -58,22 +58,34 @@ const CreateRepoForm: React.FC<CreateRepoFormProps> = ({
   const handleUpdateRepo = async () => {
     setIsLoading(true);
     setMessage("Updating Repository...");
-
-    const response = await fetch(`/api/cloud/github/${formData.name}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+    const newData = {
+      owner: formData?.owner.login as any,
+      name: formData.name,
+      updateData: {
         name: formData.name,
         description: formData.description,
         homepage: formData.homepage,
-        private: formData.isPrivate,
-      }),
+        private: formData.private,
+      },
+    };
+
+    const response = await fetch(`/api/cloud/github`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newData),
     });
 
-    const data = await response.json();
+    let data;
+    try {
+      data = await response.json(); // Attempt to parse JSON
+    } catch (error) {
+      console.error("Failed to parse JSON response:", error);
+      data = null; // If parsing fails, set data to null
+    }
+
     setIsLoading(false);
 
-    if (data && response.ok) {
+    if (response.ok && data) {
       setNotify(true);
       setSeverity("success");
       setMessage(`Repository "${formData?.name}" updated successfully!`);
@@ -81,7 +93,7 @@ const CreateRepoForm: React.FC<CreateRepoFormProps> = ({
     } else {
       setNotify(true);
       setSeverity("error");
-      setMessage(`Error: ${data.error}`);
+      setMessage(`Error: ${data?.error || "Unknown error"}`);
     }
   };
 
@@ -99,12 +111,8 @@ const CreateRepoForm: React.FC<CreateRepoFormProps> = ({
       setNotify(true);
       setSeverity("success");
       setMessage(`Repository "${formData?.name}" created successfully!`);
-      setFormData({
-        name: "",
-        description: "",
-        homepage: "",
-        isPrivate: false,
-      });
+      setSortingBy("date");
+      setFormData(defaultData);
       handleCloseDialog();
     } else {
       setNotify(true);
@@ -143,14 +151,14 @@ const CreateRepoForm: React.FC<CreateRepoFormProps> = ({
           variant="outlined"
           fullWidth
           name="homepage"
-          value={formData.homepage}
+          value={formData.homepage || ""}
           onChange={handleChange}
           sx={{ marginBottom: 2 }}
         />
         <FormControlLabel
           control={
             <Checkbox
-              checked={formData.isPrivate}
+              checked={formData.private}
               onChange={handleChange}
               color="primary"
               name="isPrivate"
@@ -193,4 +201,4 @@ const CreateRepoForm: React.FC<CreateRepoFormProps> = ({
   );
 };
 
-export default CreateRepoForm;
+export default RepoForm;

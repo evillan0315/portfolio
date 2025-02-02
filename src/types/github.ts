@@ -1,10 +1,11 @@
 export interface GitHubRepo {
-  id: number;
+  id?: number;
   name: string;
   repoName?: string;
   description: string;
-  html_url: string;
-  private: boolean;
+  html_url?: string;
+  private?: boolean;
+  isPrivate?:boolean;
   created_at: string;
   updated_at: string;
   website?: string;
@@ -12,4 +13,5 @@ export interface GitHubRepo {
   action?: string;
   homepage?: string;
   full_name?: string;
+  owner?: any;
 }

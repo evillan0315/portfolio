@@ -1,12 +1,20 @@
+"use server";
 import axios from "axios";
 
-const GITHUB_API_URL = "https://api.github.com";
+const GITHUB_API_URL = process.env.GITHUB_API_URL;
 
 export const fetchGitHubData = async (endpoint: string) => {
   try {
+    const token = process.env.GITHUB_TOKEN; // Use server-side token
+
+    if (!token) {
+      throw new Error("GitHub token is missing");
+    }
+
     const response = await axios.get(`${GITHUB_API_URL}${endpoint}`, {
       headers: {
-        Authorization: `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
+        Authorization: `token ${token}`,
+        Accept: "application/vnd.github.v3+json",
       },
     });
     return response.data;
@@ -17,7 +25,7 @@ export const fetchGitHubData = async (endpoint: string) => {
 };
 
 export const createGitHubRepo = async (
-  repoName: string,
+  name: string,
   description?: string,
   homepage?: string,
   isPrivate: boolean = false
@@ -26,14 +34,14 @@ export const createGitHubRepo = async (
     const createResponse = await axios.post(
       `${GITHUB_API_URL}/user/repos`,
       {
-        name: repoName,
-        description: description || "",
+        name: name.trim().toLowerCase(),
+        description: description?.trim().slice(0, 100) || "",
         homepage: homepage || "",
         private: isPrivate,
       },
       {
         headers: {
-          Authorization: `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
+          Authorization: `token ${process.env.GITHUB_TOKEN}`,
           Accept: "application/vnd.github.v3+json",
         },
       }
@@ -49,16 +57,16 @@ export const createGitHubRepo = async (
 // Update repository (e.g., name, description, visibility)
 export const updateGitHubRepo = async (
   owner: string,
-  repoName: string,
+  name: string,
   updateData: { name?: string; description?: string; private?: boolean }
 ) => {
   try {
     const response = await axios.patch(
-      `${GITHUB_API_URL}/repos/${owner}/${repoName}`,
+      `${GITHUB_API_URL}/repos/${owner}/${name}`,
       updateData,
       {
         headers: {
-          Authorization: `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
+          Authorization: `token ${process.env.GITHUB_TOKEN}`,
         },
       }
     );
@@ -71,13 +79,13 @@ export const updateGitHubRepo = async (
 };
 
 // Delete repository by its owner and repo name
-export const deleteGitHubRepo = async (owner: string, repoName: string) => {
+export const deleteGitHubRepo = async (owner: string, name: string) => {
   try {
     const response = await axios.delete(
-      `${GITHUB_API_URL}/repos/${owner}/${repoName}`,
+      `${GITHUB_API_URL}/repos/${owner}/${name}`,
       {
         headers: {
-          Authorization: `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
+          Authorization: `token ${process.env.GITHUB_TOKEN}`,
         },
       }
     );

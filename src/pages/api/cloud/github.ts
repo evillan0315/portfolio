@@ -8,7 +8,7 @@ import {
 
 // Define the expected type for the request body
 interface RepoRequestBody {
-  repoName: string;
+  name: string;
   description?: string;
   homepage?: string;
   topics?: string[];
@@ -21,10 +21,8 @@ export default async function handler(
   const { method } = req;
 
   // Fetch all repositories (GET)
-  if (method === "GET" && !req.query.repoName) {
-    const repos = await fetchGitHubData(
-      `/users/${process.env.NEXT_PUBLIC_GITHUB_USERNAME}/repos`
-    );
+  if (method === "GET" && !req.query.name) {
+    const repos = await fetchGitHubData(`/user/repos`);
     if (repos) {
       res.status(200).json(repos);
     } else {
@@ -32,17 +30,17 @@ export default async function handler(
     }
   }
 
-  // Fetch individual repository (GET with repoName)
-  else if (method === "GET" && req.query.repoName) {
-    const { repoName } = req.query;
+  // Fetch individual repository (GET with name)
+  else if (method === "GET" && req.query.name) {
+    const { name } = req.query;
     const owner = process.env.NEXT_PUBLIC_GITHUB_USERNAME;
 
     try {
-      const repoDetails = await fetchGitHubData(`/repos/${owner}/${repoName}`);
+      const repoDetails = await fetchGitHubData(`/repos/${owner}/${name}`);
       if (repoDetails) {
         res.status(200).json(repoDetails);
       } else {
-        res.status(404).json({ error: `Repository "${repoName}" not found` });
+        res.status(404).json({ error: `Repository "${name}" not found` });
       }
     } catch (error) {
       console.log(error);
@@ -54,18 +52,11 @@ export default async function handler(
 
   // Create repository (POST)
   if (req.method === "POST") {
-    const { repoName, description, homepage, isPrivate }: RepoRequestBody =
+    const { name, description, homepage, isPrivate }: RepoRequestBody =
       req.body;
 
-    console.log("Creating repo:", {
-      repoName,
-      description,
-      homepage,
-      isPrivate,
-    });
-
     const result = await createGitHubRepo(
-      repoName,
+      name,
       description,
       homepage,
       isPrivate
@@ -82,9 +73,10 @@ export default async function handler(
 
   // Update repository (PATCH)
   if (method === "PATCH") {
-    const { owner, repoName, updateData } = req.body;
+    const { owner, name, updateData } = req.body;
 
-    const updatedRepo = await updateGitHubRepo(owner, repoName, updateData);
+    const updatedRepo = await updateGitHubRepo(owner, name, updateData);
+
     if (updatedRepo) {
       res.status(200).json({
         message: "Repository updated successfully!",
@@ -97,13 +89,13 @@ export default async function handler(
 
   // Delete repository (DELETE)
   if (method === "DELETE") {
-    const { owner, repoName } = req.body;
+    const { owner, name } = req.body;
 
-    const isDeleted = await deleteGitHubRepo(owner, repoName);
+    const isDeleted = await deleteGitHubRepo(owner, name);
     if (isDeleted) {
       res
         .status(200)
-        .json({ message: `Repository ${repoName} deleted successfully.` });
+        .json({ message: `Repository ${name} deleted successfully.` });
     } else {
       res.status(500).json({ error: "Failed to delete GitHub repository" });
     }

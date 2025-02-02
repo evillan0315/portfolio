@@ -68,7 +68,7 @@ export default function SignIn({
   );
 }
 
-SignIn.getLayout = (page: React.ReactNode) => page;
+//SignIn.getLayout = (page: React.ReactNode) => page;
 
 SignIn.requireAuth = false;
 

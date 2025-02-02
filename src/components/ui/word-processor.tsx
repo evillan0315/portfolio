@@ -45,7 +45,7 @@ const WordProcessor: React.FC<WordProcessorProps> = ({
       ].includes(word)
     ) {
       if (headline) {
-        return `${Caveat.className} text-orange-900 dark:text-orange-500 font-bold md:text-7xl`;
+        return `${Caveat.className} text-orange-900 dark:text-orange-500 font-bold text-4xl md:text-7xl`;
       }
       return `${Caveat.className} text-orange-900 dark:text-orange-500 font-bold md:text-2xl`;
     }
@@ -92,10 +92,10 @@ const WordProcessor: React.FC<WordProcessorProps> = ({
         headline ? (
           <TypewriterEffectHeader
             words={words}
-            className="text-xl sm:text-3xl md:text-5xl"
+            className="text-2xl md:text-5xl"
           />
         ) : (
-          <TypewriterEffect className="text-lg" words={words} />
+          <TypewriterEffect className="text-sm md:text-lg" words={words} />
         )
       ) : (
         <pre className="bg-gray-900 text-white p-4 mt-10 rounded">

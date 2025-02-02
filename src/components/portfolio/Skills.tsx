@@ -6,7 +6,7 @@ import { SiReact, SiNextdotjs } from "react-icons/si";
 import { TbAi, TbBrandOauth } from "react-icons/tb";
 import { SkillsComponentData } from "@/lib/components";
 import { SkillGroup } from "@/types/models";
-
+import Container from "@mui/material/Container";
 interface SkillsProps {
   title: string;
 }
@@ -37,7 +37,8 @@ const Skills: React.FC<SkillsProps> = ({ title }) => {
     }
   };
   return (
-    <section className="skills-section">
+  <Container>
+    <section className="skills-section container">
       <h2>{title}</h2>
       <AnimatePresence mode="wait">
         <div className="skill-groups">
@@ -67,6 +68,7 @@ const Skills: React.FC<SkillsProps> = ({ title }) => {
         </div>
       </AnimatePresence>
     </section>
+    </Container>
   );
 };
 
