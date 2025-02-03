@@ -174,3 +174,7 @@ export const ProjectCardComponentData = {
     liveUrl: "https://live-demo.com",
   },
 };
+export const ProjectComponentData = {
+  component: "Project",
+  projects: [],
+};

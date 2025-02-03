@@ -1,5 +1,5 @@
 // Adjust the path as necessary
-import * as React from "react";
+//import * as React from "react";
 
 import { Data } from "@/types/models";
 
@@ -17,6 +17,8 @@ export const Projects = [
     description:
       "Built a comprehensive e-commerce management tool with Angular, allowing businesses to manage products, inventory, and orders in real-time. Integrated PayPal and Stripe for secure and flexible payment options.",
     url: "https://github.com/eddiev/e-commerce-dashboard",
+    imageUrl: "https://raw.githubusercontent.com/evillan0315/portfolio/refs/heads/master/public/assets/images/e-commerce-dashboard-home.png",
+    githubUrl: "https://github.com/username/project-repo",
     frontend: {
       technologies: ["Angular", "TypeScript", "CSS"],
       features: [
@@ -62,6 +64,8 @@ export const Projects = [
     description:
       "Designed a personal portfolio using ReactJS and TailwindCSS, featuring a custom theme to highlight work and skills. Integrated a contact form with dynamic form submission handling.",
     url: "https://github.com/eddiev/portfolio-website",
+    imageUrl: "https://raw.githubusercontent.com/evillan0315/portfolio/refs/heads/master/eddie-portfolio-homepage.png",
+    githubUrl: "https://github.com/username/project-repo",
     frontend: {
       technologies: ["ReactJS", "TailwindCSS"],
       features: [
@@ -103,6 +107,8 @@ export const Projects = [
     description:
       "Created responsive, engaging landing pages for marketing campaigns using Bootstrap and Vanilla JavaScript, with interactive elements and dynamic content to increase conversion rates.",
     url: "https://github.com/eddiev/landing-pages",
+    imageUrl: "https://raw.githubusercontent.com/evillan0315/portfolio/refs/heads/master/public/assets/images/porfolio-hero.png",
+    githubUrl: "https://github.com/username/project-repo",
     frontend: {
       technologies: ["Bootstrap", "Vanilla JavaScript"],
       features: [
@@ -142,6 +148,8 @@ export const Projects = [
     description:
       "Developed a scalable and feature-rich real-time video streaming chat platform designed for seamless video conferencing and instant messaging. Optimized for high-traffic environments with minimal latency and robust connection stability.",
     url: "https://github.com/eddiev/real-time-video",
+    imageUrl: "https://raw.githubusercontent.com/evillan0315/portfolio/refs/heads/master/public/assets/images/code-python-01.png",
+    githubUrl: "https://github.com/username/project-repo",
     frontend: {
       technologies: ["ReactJS", "TailwindCSS", "WebRTC API", "WebSocket API"],
       features: [

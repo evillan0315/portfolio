@@ -12,7 +12,7 @@ interface Field {
   type: FieldType;
   label: string;
   options?: string[]; // Only for "enum" fields
-  items?: Field; // For nested structures (e.g., arrays or objects)
+  items?: Field | Section; // Items can be a Field OR a Section
 }
 
 interface Section {
@@ -25,11 +25,11 @@ interface InputJson {
 
 interface ConvertedField {
   name: string;
-  type: string; // React-compatible input type
+  type: string;
   label: string;
   required: boolean;
-  options?: string[]; // For "select" fields
-  fields?: ConvertedField[]; // For nested fields
+  options?: string[];
+  fields?: ConvertedField[];
 }
 
 interface ConvertedSection {
@@ -37,25 +37,8 @@ interface ConvertedSection {
   fields: ConvertedField[];
 }
 
-export const inputJson: InputJson = {
-  personal_information: {
-    first_name: { required: true, type: "string", label: "First Name" },
-    last_name: { required: true, type: "string", label: "Last Name" },
-    middle_name: { required: false, type: "string", label: "Middle Name" },
-    date_of_birth: { required: true, type: "date", label: "Date of Birth" },
-    gender: {
-      required: true,
-      type: "enum",
-      label: "Gender",
-      options: ["Male", "Female", "Other", "Prefer Not to Say"],
-    },
-    contact_number: { required: true, type: "string", label: "Contact Number" },
-    email: { required: true, type: "email", label: "Email Address" },
-    address: { required: true, type: "string", label: "Address" },
-  },
-};
+// ... (inputJson remains the same)
 
-// Mapping of input types to React-compatible field types
 const typeMapping: Record<FieldType, string> = {
   string: "text",
   date: "date",
@@ -66,42 +49,58 @@ const typeMapping: Record<FieldType, string> = {
   object: "object",
 };
 
-// Function to convert the JSON
+/**
+ * Converts an `InputJson` object to an array of `ConvertedSection` objects.
+ *
+ * @param input The `InputJson` object.
+ * @returns An array of `ConvertedSection` objects.
+ */
 export function convertJson(input: InputJson): ConvertedSection[] {
   const result: ConvertedSection[] = [];
-  for (const [section, fields] of Object.entries(input)) {
-    const sectionData: ConvertedSection = { section, fields: [] };
 
-    for (const [name, field] of Object.entries(fields)) {
+  for (const [sectionName, section] of Object.entries(input)) {
+    const convertedSection: ConvertedSection = {
+      section: sectionName,
+      fields: [],
+    };
+
+    for (const [fieldName, field] of Object.entries(section)) {
       const convertedField: ConvertedField = {
-        name,
+        name: fieldName,
         type: typeMapping[field.type] || field.type,
         label: field.label,
         required: field.required,
       };
 
-      // Add options for "select" fields
       if (field.options) {
         convertedField.options = field.options;
       }
 
-      // Handle nested fields (e.g., arrays or objects)
       if (field.items) {
-        convertedField.fields = convertJson({
-          items: { items: field.items },
-        })[0].fields;
+        if (field.type === "array") {
+          // For arrays, handle the nested Field directly
+          const nestedField = field.items as Field; // Type assertion since we know it is a Field
+          convertedField.fields = [
+            {
+              ...convertJson({ items: { item: nestedField } })[0].fields[0],
+              name: "item",
+            },
+          ];
+        } else if (field.type === "object") {
+          // For objects, recursively convert the nested Section
+          const nestedSection = field.items as Section; // Type assertion since we know it is a Section
+          const nestedConvertedSection = convertJson({
+            [fieldName]: nestedSection,
+          })[0];
+          convertedField.fields = nestedConvertedSection.fields;
+        }
       }
 
-      sectionData.fields.push(convertedField);
+      convertedSection.fields.push(convertedField);
     }
 
-    result.push(sectionData);
+    result.push(convertedSection);
   }
+
   return result;
 }
-
-// Perform the conversion
-//const convertedJson = convertJson(inputJson);
-
-// Output the result
-//console.log(JSON.stringify(convertedJson, null, 2));

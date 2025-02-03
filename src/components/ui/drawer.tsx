@@ -1,7 +1,7 @@
 import React from "react";
 import DrawerMui from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid2";
+
 import CloseIcon from "@mui/icons-material/Close";
 import List from "@mui/material/List";
 import IconButton from "@mui/material/IconButton";
@@ -55,17 +55,19 @@ const Drawer: React.FC<DrawerProps> = ({ open, content, onClose }) => {
         }}
         open={open}
         onClose={onClose}
-        className="bg-black bg-opacity-70 w-full"
       >
-        <Grid>
-          <IconButton aria-label="close" size="large" onClick={onClose}>
-            <CloseIcon />
-          </IconButton>
-        </Grid>
         <Box
           component="div"
-          className={`w-full md:w-["1024px"] px-4 py-0 h-screen mx-auto`}
+          className={`relative w-full px-4 py-4 h-screen mx-auto`}
         >
+          <IconButton
+            className="absolute"
+            aria-label="close"
+            size="large"
+            onClick={onClose}
+          >
+            <CloseIcon />
+          </IconButton>
           {DrawerList}
         </Box>
       </DrawerMui>

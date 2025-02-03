@@ -33,6 +33,8 @@ const nextConfig: NextConfig = {
       "b3314629.smushcdn.com",
       "pbs.twimg.com",
       "avatars.githubusercontent.com",
+      "raw.githubusercontent.com",
+      "github.com",
     ],
   },
 };

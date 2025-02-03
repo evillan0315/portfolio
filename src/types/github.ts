@@ -5,7 +5,7 @@ export interface GitHubRepo {
   description: string;
   html_url?: string;
   private?: boolean;
-  isPrivate?:boolean;
+  isPrivate?: boolean;
   created_at: string;
   updated_at: string;
   website?: string;

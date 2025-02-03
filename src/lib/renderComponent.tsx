@@ -1,7 +1,14 @@
-// lib/renderComponent.tsx
+/**
+ * Renders a dynamic component based on the provided configuration.
+ * Supports rendering Box, Typography, and AppBar components.
+ *
+ * @param component The component configuration object.  This object should
+ *                  have a `type` property indicating the component type (e.g., "box", "typography", "appbar").
+ *                  Other properties depend on the component type (e.g., `className`, `children`, `variant`, `text`, `title`, `buttons`).
+ * @returns A React element representing the rendered component, or `null` if the component type is not supported or the configuration is invalid.
+ */
 import React from "react";
 import { Box, Typography, AppBar, Toolbar, Button } from "@mui/material";
-//import CustomComponent from "@/components/CustomComponent";
 
 const renderComponent = (component: any) => {
   console.log(component);

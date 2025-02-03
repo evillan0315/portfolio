@@ -11,6 +11,8 @@ import AccountCustom from "@/components/Account";
 import { Spotlight } from "@/components/ui/spotlightv2";
 import BackgroundLinesSection from "@/components/BackgroundLinesSection";
 import GitHubRepoList from "@/components/github/GithubRepoList";
+import ProjectDisplay from "@/components/portfolio/ProjectDisplay";
+import {Projects} from "../../data/resume";
 const HomePage = () => {
   return (
     <Box>
@@ -83,7 +85,8 @@ const HomePage = () => {
             </Typography>{" "}
             Projects
           </Typography>
-          <BentoGridProject />
+
+          <ProjectDisplay projects={Projects} />
         </Box>
       </Box>
     </Box>

@@ -1,13 +1,12 @@
+"use client";
 import React, { useState, useEffect, useCallback } from "react";
 
 // MUI components
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
+
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid2";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import Link from "@mui/material/Link";
 
 import { useSession } from "next-auth/react";
 import Stack from "@mui/material/Stack";
@@ -21,11 +20,18 @@ import { GitHubRepo } from "@/types/github";
 import DateFormat from "../DateFormat";
 //import { CardActionArea } from "@mui/material";
 import LoadingComponent from "../LoadingComponent";
+import {
+  CardTitle,
+  CardItem,
+  CardDescription,
+} from "@/components/ui/hover-effect";
 import { IconButton, Tooltip } from "@mui/material";
 import { MdVisibility } from "react-icons/md";
 import { IconEdit, IconTrash } from "@tabler/icons-react";
 // Type for a GitHub repo
-
+import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
+import { Url } from "next/dist/shared/lib/router/router";
 interface GitHubRepoListProps {
   sortBy?: "name" | "date"; // Sorting criteria
   openDial?: boolean;
@@ -39,7 +45,7 @@ const GitHubRepoList: React.FC<GitHubRepoListProps> = ({ sortBy }) => {
   const [message, setMessage] = useState("");
   const [action, setAction] = useState("");
   const { data: session } = useSession();
-
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const reposPerPage = 6;
@@ -125,23 +131,38 @@ const GitHubRepoList: React.FC<GitHubRepoListProps> = ({ sortBy }) => {
       {isLoading && <LoadingComponent message={message} />}
 
       <Grid container spacing={1}>
-        {currentRepos.map((repo) => (
+        {currentRepos.map((repo, idx) => (
           <Grid key={repo.id} size={{ md: 4, sm: 6, xs: 12 }}>
-            <Card sx={{ p: 0 }} className="h-[100%]">
-              <CardContent sx={{ p: 2 }}>
-                <Typography
-                  variant="h6"
-                  className="line-clamp-1"
-                  sx={{ fontSize: "1rem", fontWeight: 200 }}
-                >
-                  <Link href={repo?.html_url} target="_blank">
+            <Box
+              key={repo.name}
+              className="relative group  block p-2 h-full w-full"
+              onMouseEnter={() => setHoveredIndex(idx)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              <AnimatePresence>
+                {hoveredIndex === idx && (
+                  <motion.span
+                    className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block  rounded-3xl"
+                    layoutId="hoverBackground"
+                    initial={{ opacity: 0 }}
+                    animate={{
+                      opacity: 1,
+                      transition: { duration: 0.15 },
+                    }}
+                    exit={{
+                      opacity: 0,
+                      transition: { duration: 0.15, delay: 0.2 },
+                    }}
+                  />
+                )}
+              </AnimatePresence>
+              <CardItem>
+                <CardTitle>
+                  <Link href={repo?.html_url as Url} target="_blank">
                     {repo.name}
                   </Link>
-                </Typography>
-                <Typography variant="caption" sx={{ fontWeight: 200, mb: 2 }}>
-                  {repo?.full_name}
-                </Typography>
-                <Box className="h-10">
+                </CardTitle>
+                <CardDescription>
                   <Typography
                     variant="body2"
                     color="textSecondary"
@@ -150,19 +171,17 @@ const GitHubRepoList: React.FC<GitHubRepoListProps> = ({ sortBy }) => {
                   >
                     {repo.description || "No description available."}
                   </Typography>
+                </CardDescription>
 
-                  <Typography
-                    variant="caption"
-                    display="block"
-                    color="textSecondary"
-                    sx={{ fontSize: ".7rem", fontWeight: 200 }}
-                  >
-                    Last Updated:{" "}
-                    <DateFormat date={repo?.updated_at} ago={true} />
-                  </Typography>
-                </Box>
-
-                {/* Icon Buttons */}
+                <Typography
+                  variant="caption"
+                  display="block"
+                  color="textSecondary"
+                  sx={{ fontSize: ".7rem", fontWeight: 200 }}
+                >
+                  Last Updated:{" "}
+                  <DateFormat date={repo?.updated_at} ago={true} />
+                </Typography>
                 {session && (
                   <>
                     {splitE[0] === repo?.owner.login && (
@@ -203,8 +222,8 @@ const GitHubRepoList: React.FC<GitHubRepoListProps> = ({ sortBy }) => {
                     )}
                   </>
                 )}
-              </CardContent>
-            </Card>
+              </CardItem>
+            </Box>
           </Grid>
         ))}
       </Grid>
