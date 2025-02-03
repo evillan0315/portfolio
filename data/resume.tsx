@@ -2,6 +2,11 @@
 //import * as React from "react";
 
 import { Data } from "@/types/models";
+import Image from "next/image";
+import React from "react";
+import { Timeline } from "@/components/ui/timeline";
+
+
 
 export const JobTech = {
   Dashboard: ["React", "NodeJS", "Kubernetes", "Docker"],
@@ -248,8 +253,7 @@ export const Experiences = [
     position: "Technology Consultant",
     startDate: "2023-05-01",
     endDate: "Present",
-    url: "",
-    logo: "",
+
     summary:
       "Designed and deployed scalable cloud infrastructures on AWS, Google Cloud, and Azure for various clients. Developed custom full-stack applications with Node.js, React, Docker, and Kubernetes for seamless deployments and high availability.",
     highlights: [
@@ -260,6 +264,8 @@ export const Experiences = [
     ],
     projects: [{ id: 1 }],
     technology: [{ id: 1 }],
+    url: "",
+    logo: "",
   },
   {
     name: "Dashboard Hosting",
@@ -274,6 +280,10 @@ export const Experiences = [
       "Integrated WebRTC, WebSockets, OpenVidu, and CoTURN to enable secure and efficient real-time communication.",
       "Automated deployment and monitoring using Prometheus and custom shell scripts, improving system reliability and observability.",
     ],
+        projects: [{ id: 1 }],
+    technology: [{ id: 1 }],
+    url: "",
+    logo: "",
   },
   {
     name: "Meetlily Advertising",
@@ -288,6 +298,10 @@ export const Experiences = [
       "Established and maintained CI/CD pipelines using GitHub Actions to automate build, test, and deployment processes.",
       "Integrated OAuth and JWT for secure authentication, ensuring user data protection and system integrity.",
     ],
+    projects: [{ id: 1 }],
+    technology: [{ id: 1 }],
+    url: "",
+    logo: "",
   },
   {
     name: "Welligent",
@@ -301,6 +315,10 @@ export const Experiences = [
       "Implemented DevOps best practices by optimizing CI/CD workflows, ensuring reliable releases and minimal downtime for enterprise SaaS applications.",
       "Worked closely with cross-functional teams to design and deliver new features, ensuring scalability and performance.",
     ],
+        projects: [{ id: 1 }],
+    technology: [{ id: 1 }],
+    url: "",
+    logo: "",
   },
   {
     name: "Easton Advertising",
@@ -313,24 +331,16 @@ export const Experiences = [
       "Developed and maintained websites using WordPress, PHP, and MySQL, focusing on performance and security optimizations.",
       "Led UI/UX enhancements for improved user experience and web performance.",
     ],
-  },
-  {
-    name: "Resite Online",
-    position: "Developer/Programmer",
-    startDate: "2013-10-01",
-    endDate: "2014-01-01",
-    summary:
-      "Built responsive websites using AngularJS and PHP, contributing to a modular approach for maintainability and scalability.",
-    highlights: [
-      "Built responsive websites using AngularJS and PHP, contributing to a modular approach for maintainability and scalability.",
-      "Assisted in the transition to Agile methodology, improving team productivity and project efficiency.",
-    ],
+        projects: [{ id: 1 }],
+    technology: [{ id: 1 }],
+    url: "",
+    logo: "",
   },
   {
     name: "Inmotion Hosting",
     position: "Web Designer/Coder II",
-    startDate: "2017-08-01",
-    endDate: "2018-12-01",
+    startDate: "2013-08-01",
+    endDate: "2014-12-01",
     summary:
       "Developed custom web hosting solutions using WordPress, cPanel, and custom CMS platforms.",
     highlights: [
@@ -338,7 +348,28 @@ export const Experiences = [
       "Optimized server-side scripting and database configurations, ensuring high availability and performance.",
       "Provided client troubleshooting and support, ensuring minimal downtime and optimal service delivery.",
     ],
+        projects: [{ id: 1 }],
+    technology: [{ id: 1 }],
+    url: "",
+    logo: "",
   },
+  {
+    name: "Resite Online",
+    position: "Developer/Programmer",
+    startDate: "2012-10-01",
+    endDate: "2013-01-01",
+    summary:
+      "Built responsive websites using AngularJS and PHP, contributing to a modular approach for maintainability and scalability.",
+    highlights: [
+      "Built responsive websites using AngularJS and PHP, contributing to a modular approach for maintainability and scalability.",
+      "Assisted in the transition to Agile methodology, improving team productivity and project efficiency.",
+    ],
+        projects: [{ id: 1 }],
+    technology: [{ id: 1 }],
+    url: "",
+    logo: "",
+  },
+  
 ];
 export const Skills = [
   {
@@ -486,7 +517,8 @@ const ResumeData: Data = {
     image:
       "https://avatars.githubusercontent.com/u/192534455?s=400&u=aa6ec2ad9c99a81dc6fa7be0dcd0f5f143ba2413&v=4",
     email: "evillan0315@gmail.com",
-    phone: "+639627642283",
+    phone: "(+63) 962 764 2283",
+    work_status: "Open to hybrid or remote work with occasional onsite collaboration.",
     url: "https://linkedin.com/in/evillanueva0315",
     summary:
       "Experienced software engineer and DevOps specialist with over 12 years in software development and consulting. Adept in full-stack development, cloud engineering, real-time communication solutions, and implementing CI/CD pipelines. Passionate about mentoring, optimizing workflows, and staying updated with industry trends.",
@@ -502,6 +534,19 @@ const ResumeData: Data = {
         network: "LinkedIn",
         username: "evillanueva0315",
         url: "https://linkedin.com/in/evillanueva0315",
+        icon: "linkedin"
+      },
+      {
+        network: "Facebook",
+        username: "evillanueva0315",
+        url: "https://facebook.com/evillanueva0315",
+        icon: "facebook"
+      },
+      {
+        network: "Github",
+        username: "evillan0315",
+        url: "https://github.com/evillan0315",
+        icon: "github"
       },
     ],
     subheading:

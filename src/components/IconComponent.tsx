@@ -40,7 +40,7 @@ const IconComponent: React.FC<IconComponentProps> = ({
     <>
       {Icon && !CustomIcon && (
         <Chip
-          variant="outlined"
+
           icon={
             <Icon
               color={color}
@@ -50,7 +50,7 @@ const IconComponent: React.FC<IconComponentProps> = ({
             />
           }
           label={showLabel ? iconName : undefined}
-          className={`text-center mx-auto ${!showLabel ? "border-0 p-0" : ""}`}
+          className={`text-center mx-auto bg-none ${!showLabel ? "border-0 px-0 pl-2" : ""}`}
         />
       )}
       {CustomIcon && (

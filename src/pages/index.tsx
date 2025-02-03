@@ -1,19 +1,41 @@
 "use client";
 import * as React from "react";
 //import prisma from "@/lib/prisma";
-import BentoGridProject from "@/components/BentoGridProject";
+
 import HeroSectionBackground from "@/components/HeroSectionBackground";
 import TechnologySkillSpec from "@/components/portfolio/TechnologySkills";
 import Box from "@mui/material/Box";
+import {Timeline} from "@/components/ui/timeline";
 
-import Typography from "@mui/material/Typography";
-import AccountCustom from "@/components/Account";
+//import AccountCustom from "@/components/Account";
 import { Spotlight } from "@/components/ui/spotlightv2";
 import BackgroundLinesSection from "@/components/BackgroundLinesSection";
 import GitHubRepoList from "@/components/github/GithubRepoList";
 import ProjectDisplay from "@/components/portfolio/ProjectDisplay";
-import {Projects} from "../../data/resume";
+import ExperienceContent from "@/components/portfolio/ExperienceContent";
+import { Projects, Experiences } from "../../data/resume";
+import HeroHeader from "@/components/ui/HeroHeader";
+import TestimonialsSection from "@/components/TestimonialsSection";
+
+import { DateTime } from "luxon";
+interface TimelineEntry {
+  title: string;
+  date?: string;
+  content: React.ReactNode;
+}
 const HomePage = () => {
+
+	function formatTitle (data: any) {
+		if(data){
+			return DateTime.fromISO(data.startDate).toFormat("MMM yyyy");
+		}
+		
+	}
+	const experienceLoop: TimelineEntry[] = Experiences.map((exp) => ({
+	    title: exp.name,
+	    date: formatTitle(exp),
+	    content: <ExperienceContent exp={exp} />,
+	  }));
   return (
     <Box>
       {/* Background starts. This must stay at the top */}
@@ -23,71 +45,29 @@ const HomePage = () => {
       </Box>
       {/* End of background. Do not remove the h-screen and z-index below */}
       <Box className="h-screen relative z-20">
-        <AccountCustom />
-        <HeroSectionBackground />
-        <TechnologySkillSpec />
-        <Box sx={{ py: 6 }}>
-          <Typography
-            variant="h2"
-            sx={{
-              fontWeight: 500,
-              textAlign: "center",
-              mb: 4,
-              md: {
-                fontSize: "1.5rem",
-              },
-              sm: {
-                fontSize: "1.1rem",
-              },
-              xs: {
-                fontSize: ".8rem",
-              },
-            }}
-          >
-            <Typography
-              component="span"
-              color="primary"
-              variant="h1"
-              className="caveat_font pr-2"
-            >
-              Github
-            </Typography>{" "}
-            Repositories
-          </Typography>
-          <GitHubRepoList />
-        </Box>
 
+        <HeroSectionBackground />
+        <HeroHeader caveat={false} title={"Powerful Cutting-edge Technologies"} h={"h1"} subtitle={""} />
+      
+        <TechnologySkillSpec />
+        <Box>
+        <HeroHeader caveat={false}  title={"Professional Experience"} h={"h1"} subtitle={""} />
+        
+        	<Timeline data={experienceLoop} />
+        </Box>
         <Box sx={{ py: 6 }}>
-          <Typography
-            variant="h2"
-            sx={{
-              fontWeight: 500,
-              textAlign: "center",
-              mb: 4,
-              md: {
-                fontSize: "1.5rem",
-              },
-              sm: {
-                fontSize: "1.1rem",
-              },
-              xs: {
-                fontSize: ".8rem",
-              },
-            }}
-          >
-            <Typography
-              component="span"
-              color="primary"
-              variant="h1"
-              className="caveat_font pr-2"
-            >
-              Notable
-            </Typography>{" "}
-            Projects
-          </Typography>
+        <HeroHeader caveat={false}  title={"Notable Projects"} h={"h1"} subtitle={""} />
+
 
           <ProjectDisplay projects={Projects} />
         </Box>
+        <Box sx={{ py: 6 }}>
+        <HeroHeader caveat={false}  title={"Github Repositories"} h={"h1"} subtitle={""} />
+          <GitHubRepoList />
+	
+        </Box>
+
+      	<TestimonialsSection />
       </Box>
     </Box>
   );

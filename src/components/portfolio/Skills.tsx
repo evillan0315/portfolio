@@ -13,7 +13,7 @@ interface SkillsProps {
 
 const Skills: React.FC<SkillsProps> = ({ title }) => {
   const [formData, setFormData] = useState<SkillGroup>(SkillsComponentData);
-  console.log(setFormData);
+	console.log(setFormData)
   const variants = {
     hidden: { opacity: 0, x: -100 },
     visible: { opacity: 1, x: 0 },

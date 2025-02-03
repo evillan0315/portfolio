@@ -72,6 +72,7 @@ export interface Basics {
   phone: string;
   url: string;
   summary: string;
+  work_status: string;
   locations: {
     city: string;
     countryCode: string;
@@ -81,6 +82,7 @@ export interface Basics {
     network: string;
     username: string;
     url: string;
+    icon: string;
   }[];
   subheading: string;
   quotes: string[];

@@ -24,32 +24,8 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
 const TechnologySkillSpec = () => {
   return (
     <Container className="py-12">
-      <Typography
-        variant="h2"
-        sx={{
-          fontWeight: 500,
-          textAlign: "center",
-          md: {
-            fontSize: "1.5rem",
-          },
-          sm: {
-            fontSize: "1.1rem",
-          },
-          xs: {
-            fontSize: ".8rem",
-          },
-        }}
-      >
-        <Typography
-          component="span"
-          color="primary"
-          variant="h1"
-          className="caveat_font pr-2"
-        >
-          Powerful
-        </Typography>{" "}
-        Cutting-edge Technologies
-      </Typography>
+     
+        
       <Box component="div" className="py-2">
         <Grid
           container

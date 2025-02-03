@@ -2,8 +2,6 @@
 
 import React, { ReactNode } from "react";
 import AppTheme from "@/shared-theme/AppTheme";
-import FooterComponent from "../FooterComponent";
-
 import CssBaseline from "@mui/material/CssBaseline";
 
 import Box from "@mui/material/Box";
@@ -46,9 +44,6 @@ const DynamicLayout = ({
       >
         <Box component="div" className="w-full h-screen overflow-auto">
           {children}
-          <Box component="footer">
-            <FooterComponent />
-          </Box>
         </Box>
       </Box>
     </AppTheme>

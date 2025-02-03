@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Grid from "@mui/material/Grid2";
 import Container from "@mui/material/Container";
@@ -32,14 +33,17 @@ export default function ProjectDisplay({ projects }: ProjectDisplayProps) {
       <Grid container direction="row" spacing={4} sx={{}}>
         {projects.map((project, index) => (
           <>
-            <Grid key={index} size={6}>
-              <div className="h-[22rem] w-full flex items-center justify-center ">
+            <Grid key={index} size={{ md: 6, xs: 12 }}>
+              <div
+                key={index}
+                className="h-[22rem] w-full flex items-center justify-center "
+              >
                 <PinContainer
                   key={index}
                   title={project?.name}
                   href={project?.url}
                 >
-                  <div className="tracking-tight text-slate-100/50 sm:basis-1/2 w-[30rem] h-[20rem] ">
+                  <div className="tracking-tight text-slate-100/50 sm:basis-1/2 w-[20rem] md:w-[30rem] h-[20rem]  ">
                     <h3 className="max-w-xs !pb-2 !m-0 font-bold  text-base text-slate-100  line-clamp-1">
                       {project?.name}
                     </h3>
@@ -50,7 +54,7 @@ export default function ProjectDisplay({ projects }: ProjectDisplayProps) {
                     </div>
 
                     <div
-                      className="flex flex-1 w-auto h-[200px] rounded-lg mt-4 bg-gradient-to-br from-violet-500 via-purple-500 to-blue-500 bg-cover bg-center"
+                      className="flex flex-1 w-full h-[200px] rounded-lg mt-4 bg-gradient-to-br from-violet-500 via-purple-500 to-blue-500 bg-cover bg-center"
                       style={{ backgroundImage: `url(${project?.imageUrl})` }}
                     ></div>
                   </div>
