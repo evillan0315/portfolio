@@ -1,6 +1,6 @@
 import { lazy } from "react"
 import { Helmet } from "react-helmet-async"
-import { Hero } from "@/components/sections/hero"
+import { Hero } from "@/components/sections/Hero"
 import { LazySection } from "@/components/common/lazy-section"
 
 const About = lazy(() => import("@/components/sections/about"))
