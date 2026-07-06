@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { navigation } from "@/data/navigation"
+import heroImage from "@/assets/eddie-v-hero-image.png"
 
 
 export function Navbar() {
@@ -56,19 +57,28 @@ export function Navbar() {
         className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8"
         aria-label="Main navigation"
       >
-        {/* Logo */}
+        {/* Logo — avatar + name */}
         <a
           href="#hero"
           onClick={(e) => {
             e.preventDefault()
             handleNavClick("#hero")
           }}
-          className="text-lg font-bold tracking-tight"
+          className="flex items-center gap-2.5"
         >
-          <span className="bg-gradient-to-r from-[#6366F1] to-[#A855F7] bg-clip-text text-transparent">
-            EV
+          <div className="overflow-hidden rounded-full border border-white/10 shadow-lg">
+            <img
+              src={heroImage}
+              alt="Eddie Villanueva"
+              className="h-7 w-7 object-cover sm:h-8 sm:w-8"
+            />
+          </div>
+          <span className="text-sm font-bold tracking-tight sm:text-base">
+            <span className="bg-gradient-to-r from-[#6366F1] to-[#A855F7] bg-clip-text text-transparent">
+              Eddie
+            </span>
+            <span className="ml-0.5 text-text-muted">.</span>
           </span>
-          <span className="ml-1 text-text-muted">.</span>
         </a>
 
         {/* Desktop nav */}

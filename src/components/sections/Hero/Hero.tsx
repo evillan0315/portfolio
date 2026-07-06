@@ -1,13 +1,13 @@
 "use client"
 
 import { HeroContent } from "./HeroContent"
-import { HeroImageCard } from "./HeroImageCard"
+import { HeroTerminal } from "./HeroTerminal"
 
 export function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen overflow-hidden pt-32 pb-20"
+      className="relative min-h-screen overflow-hidden pt-28 pb-16 sm:pt-32 sm:pb-20"
       aria-label="Hero introduction"
     >
       {/* Rich glow backgrounds */}
@@ -27,13 +27,18 @@ export function Hero() {
         aria-hidden="true"
       />
 
-      <div className="relative mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-16 lg:grid-cols-[42%_58%] lg:gap-20">
+      {/* Full-fluid layout */}
+      <div className="mx-auto flex min-h-[calc(100vh-8rem)] w-full max-w-none items-center px-4 sm:px-8 lg:px-12 xl:px-16">
+        <div className="grid w-full items-center gap-12 lg:grid-cols-[minmax(0,42%)_minmax(0,58%)] lg:gap-16">
           {/* Left column — text content */}
-          <HeroContent />
+          <div className="mx-auto w-full max-w-xl xl:max-w-2xl">
+            <HeroContent />
+          </div>
 
-          {/* Right column — image card */}
-          <HeroImageCard />
+          {/* Right column — terminal typewriter */}
+          <div className="mx-auto w-full max-w-2xl xl:max-w-3xl">
+            <HeroTerminal />
+          </div>
         </div>
       </div>
     </section>
