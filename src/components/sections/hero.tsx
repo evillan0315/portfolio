@@ -186,7 +186,15 @@ export function Hero() {
                 icon={<Download size={18} />}
                 iconPosition="left"
                 onClick={() => {
-                  // Resume download
+                  if (!profile.resumeUrl) return
+                  const base = import.meta.env.BASE_URL
+                  const url = `${base}${profile.resumeUrl.replace(/^\//, "")}`
+                  const link = document.createElement("a")
+                  link.href = url
+                  link.download = "Eddie_Villanueva_Resume.pdf"
+                  document.body.appendChild(link)
+                  link.click()
+                  document.body.removeChild(link)
                 }}
               >
                 Download CV
