@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { Calendar, Clock, ArrowRight } from "lucide-react"
@@ -8,8 +8,11 @@ import { SectionHeader } from "@/components/ui/section-header"
 import { GlassCard } from "@/components/ui/glass-card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { Pagination } from "@/components/ui/pagination"
 import { cn } from "@/lib/utils"
 import { blogPosts } from "@/data/blog"
+
+const PAGE_SIZE = 6
 
 const allTags = Array.from(new Set(blogPosts.flatMap((p) => p.tags))).sort()
 
@@ -23,10 +26,23 @@ function formatDate(dateStr: string) {
 
 export default function Blog() {
   const [activeTag, setActiveTag] = useState<string | null>(null)
+  const [currentPage, setCurrentPage] = useState(1)
 
-  const filtered = activeTag
-    ? blogPosts.filter((p) => p.tags.includes(activeTag))
-    : blogPosts
+  // Reset page when tag filter changes
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [activeTag])
+
+  const filtered = useMemo(
+    () => (activeTag ? blogPosts.filter((p) => p.tags.includes(activeTag)) : blogPosts),
+    [activeTag],
+  )
+
+  const totalPages = Math.ceil(filtered.length / PAGE_SIZE)
+  const paginated = filtered.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE,
+  )
 
   return (
     <section id="blog" className="relative py-24 sm:py-32" aria-label="Blog posts">
@@ -68,7 +84,7 @@ export default function Blog() {
 
         {/* Grid */}
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-          {filtered.map((post, i) => (
+          {paginated.map((post, i) => (
             <motion.div
               key={post.slug}
               initial={{ opacity: 0, y: 20 }}
@@ -124,6 +140,15 @@ export default function Blog() {
             </motion.div>
           ))}
         </div>
+
+        {/* Pagination */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={filtered.length}
+          pageSize={PAGE_SIZE}
+          onPageChange={setCurrentPage}
+        />
 
         {/* View all link */}
         <div className="mt-10 text-center">

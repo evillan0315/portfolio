@@ -1,24 +1,40 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ExternalLink, Github, Star } from "lucide-react"
 import { SectionHeader } from "@/components/ui/section-header"
 import { GlassCard } from "@/components/ui/glass-card"
 import { Badge } from "@/components/ui/badge"
+import { Pagination } from "@/components/ui/pagination"
 import { cn } from "@/lib/utils"
 import { projects } from "@/data/projects"
 import type { Project } from "@/types"
+
+const PAGE_SIZE = 9
 
 /* ── Tag extractor ── */
 const allTags = Array.from(new Set(projects.flatMap((p) => p.tags))).sort()
 
 export default function Projects() {
   const [activeTag, setActiveTag] = useState<string | null>(null)
+  const [currentPage, setCurrentPage] = useState(1)
 
-  const filtered = activeTag
-    ? projects.filter((p) => p.tags.includes(activeTag))
-    : projects
+  // Reset page when tag filter changes
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [activeTag])
+
+  const filtered = useMemo(
+    () => (activeTag ? projects.filter((p) => p.tags.includes(activeTag)) : projects),
+    [activeTag],
+  )
+
+  const totalPages = Math.ceil(filtered.length / PAGE_SIZE)
+  const paginated = filtered.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE,
+  )
 
   return (
     <section id="projects" className="relative py-24 sm:py-32" aria-label="Featured projects">
@@ -61,18 +77,27 @@ export default function Projects() {
         {/* Grid */}
         <AnimatePresence mode="wait">
           <motion.div
-            key={activeTag ?? "all"}
+            key={`${activeTag ?? "all"}-page-${currentPage}`}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.25 }}
             className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3"
           >
-            {filtered.map((project, i) => (
+            {paginated.map((project, i) => (
               <ProjectCard key={project.slug} project={project} index={i} />
             ))}
           </motion.div>
         </AnimatePresence>
+
+        {/* Pagination */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={filtered.length}
+          pageSize={PAGE_SIZE}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </section>
   )
