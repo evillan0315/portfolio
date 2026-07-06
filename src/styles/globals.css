@@ -29,7 +29,7 @@
   --color-gradient-end: #a855f7;
 
   /* Typography */
-  --font-family-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-family-sans: "Open Sans", ui-sans-serif, system-ui, sans-serif;
 
   /* Animations */
   --animate-glow-pulse: glow-pulse 3s ease-in-out infinite;
