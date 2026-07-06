@@ -40,7 +40,13 @@ export function Navbar() {
     const id = href.replace("#", "")
     const el = document.getElementById(id)
     if (el) {
-      el.scrollIntoView({ behavior: "smooth" })
+      // Use requestAnimationFrame so the mobile drawer close animation
+      // starts before we scroll, giving accurate page height.
+      requestAnimationFrame(() => {
+        const navbarHeight = 64
+        const top = el.getBoundingClientRect().top + window.scrollY - navbarHeight
+        window.scrollTo({ top, behavior: "smooth" })
+      })
     }
   }
 

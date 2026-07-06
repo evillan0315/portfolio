@@ -15,7 +15,7 @@ const typeConfig = {
 
 export default function Experience() {
   return (
-    <section id="experience" className="relative py-24 sm:py-32" aria-label="Professional experience">
+    <section id="experience" className="relative scroll-mt-16 py-24 sm:py-32" aria-label="Professional experience">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
           title="Experience"

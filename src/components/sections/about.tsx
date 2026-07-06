@@ -46,7 +46,7 @@ const itemVariants = {
 
 export default function About() {
   return (
-    <section id="about" className="relative py-24 sm:py-32" aria-label="About me">
+    <section id="about" className="relative scroll-mt-16 py-24 sm:py-32" aria-label="About me">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
           title="About Me"

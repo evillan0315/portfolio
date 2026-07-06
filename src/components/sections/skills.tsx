@@ -85,7 +85,7 @@ export default function Skills() {
   const displayData: Tab[] = activeTab === "skills" ? skillCategories : aiExpertise
 
   return (
-    <section id="skills" className="relative py-24 sm:py-32" aria-label="Skills and expertise">
+    <section id="skills" className="relative scroll-mt-16 py-24 sm:py-32" aria-label="Skills and expertise">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
           title="Skills & Expertise"

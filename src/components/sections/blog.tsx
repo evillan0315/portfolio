@@ -45,7 +45,7 @@ export default function Blog() {
   )
 
   return (
-    <section id="blog" className="relative py-24 sm:py-32" aria-label="Blog posts">
+    <section id="blog" className="relative scroll-mt-16 py-24 sm:py-32" aria-label="Blog posts">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
           title="Latest Writings"

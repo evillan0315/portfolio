@@ -42,7 +42,7 @@ export default function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="relative py-24 sm:py-32"
+      className="relative scroll-mt-16 py-24 sm:py-32"
       aria-label="Testimonials"
     >
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">

@@ -37,7 +37,7 @@ export default function Projects() {
   )
 
   return (
-    <section id="projects" className="relative py-24 sm:py-32" aria-label="Featured projects">
+    <section id="projects" className="relative scroll-mt-16 py-24 sm:py-32" aria-label="Featured projects">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeader
           title="Featured Projects"

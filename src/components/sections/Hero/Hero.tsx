@@ -7,7 +7,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen overflow-hidden pt-28 pb-16 sm:pt-32 sm:pb-20"
+      className="relative min-h-screen overflow-hidden pt-28 pb-16 sm:pt-32 sm:pb-20 scroll-mt-16"
       aria-label="Hero introduction"
     >
       {/* Rich glow backgrounds */}

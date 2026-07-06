@@ -45,7 +45,9 @@ export function Footer() {
     const id = href.replace("#", "")
     const el = document.getElementById(id)
     if (el) {
-      el.scrollIntoView({ behavior: "smooth" })
+      const navbarHeight = 64
+      const top = el.getBoundingClientRect().top + window.scrollY - navbarHeight
+      window.scrollTo({ top, behavior: "smooth" })
     }
   }
 
@@ -54,7 +56,7 @@ export function Footer() {
   }
 
   return (
-    <footer className="border-t border-white/10 bg-bg-secondary" id="contact">
+    <footer className="scroll-mt-16 border-t border-white/10 bg-bg-secondary" id="contact">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         {/* Top section */}
         <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
