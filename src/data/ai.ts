@@ -1,4 +1,4 @@
-import type { AIExpertiseCategory } from "@/types"
+import type { AIExpertiseCategory, AIFlowStage } from "@/types"
 
 export const aiExpertise: AIExpertiseCategory[] = [
   {
@@ -78,5 +78,57 @@ export const aiExpertise: AIExpertiseCategory[] = [
       { name: "Cline", description: "Autonomous coding agent for VS Code" },
       { name: "Continue.dev", description: "Open-source AI code assistant" },
     ],
+  },
+]
+
+export const aiFlowStages: AIFlowStage[] = [
+  {
+    id: "input",
+    label: "User Input",
+    description: "Raw query or task from the user",
+    icon: "message-square",
+    items: ["Chat interface", "API request", "Voice input", "Code context"],
+  },
+  {
+    id: "prompt",
+    label: "Prompt Engineering",
+    description: "System prompt construction and instruction crafting",
+    icon: "file-text",
+    items: ["System prompts", "Few-shot examples", "Chain-of-thought", "Role prompting"],
+  },
+  {
+    id: "context",
+    label: "Context Enrichment",
+    description: "Retrieval, embeddings, and context assembly",
+    icon: "database",
+    items: ["RAG pipeline", "Vector search", "Embeddings", "Context window management"],
+  },
+  {
+    id: "tools",
+    label: "Tool Execution",
+    description: "External tool calling and function execution",
+    icon: "wrench",
+    items: ["Function calling", "MCP protocol", "API tools", "Code execution"],
+  },
+  {
+    id: "inference",
+    label: "LLM Inference",
+    description: "Model inference across commercial, open-source, and local models",
+    icon: "brain",
+    items: ["Commercial APIs", "Open-source models", "Local inference", "Model routing"],
+  },
+  {
+    id: "memory",
+    label: "Memory & State",
+    description: "Conversation history, persistent memory, and state management",
+    icon: "hard-drive",
+    items: ["Conversation history", "Episodic memory", "State graphs", "Session management"],
+  },
+  {
+    id: "output",
+    label: "Structured Output",
+    description: "Response formatting, validation, and delivery",
+    icon: "check-square",
+    items: ["JSON schema", "Type validation", "Streaming", "Response formatting"],
   },
 ]

@@ -58,7 +58,7 @@
 - [x] Build SkillCategory section component
 - [x] Add hover tooltip with skill details
 - [x] Create AI & LLM Engineering subsection (6 categories)
-- [ ] Build AI infrastructure flow diagram
+- [x] Build AI infrastructure flow diagram (7-stage pipeline with animated SVG connectors)
 
 ## Phase 7 — Featured Projects
 

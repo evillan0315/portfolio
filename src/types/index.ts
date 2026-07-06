@@ -119,3 +119,12 @@ export interface EngineeringPrinciple {
   description: string
   icon: string
 }
+
+/** AI infrastructure flow diagram stage */
+export interface AIFlowStage {
+  id: string
+  label: string
+  description: string
+  icon: string
+  items: string[]
+}

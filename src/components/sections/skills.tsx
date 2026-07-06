@@ -7,6 +7,7 @@ import { GlassCard } from "@/components/ui/glass-card"
 import { cn } from "@/lib/utils"
 import { skillCategories } from "@/data/skills"
 import { aiExpertise } from "@/data/ai"
+import { AIFlowDiagram } from "@/components/sections/ai-flow-diagram"
 import type { SkillCategory, AIExpertiseCategory } from "@/types"
 
 /* ── Tab selector ── */
@@ -169,6 +170,19 @@ export function Skills() {
             ))}
           </motion.div>
         </AnimatePresence>
+
+        {/* AI Infrastructure Pipeline — shown only in AI tab */}
+        {activeTab === "ai" && (
+          <motion.div
+            key="ai-flow"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-16"
+          >
+            <AIFlowDiagram />
+          </motion.div>
+        )}
       </div>
     </section>
   )
