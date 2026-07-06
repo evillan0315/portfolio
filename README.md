@@ -19,6 +19,7 @@
 ![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v4-06B6D4?logo=tailwindcss)
 ![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-222?logo=githubpages)
+![Vercel](https://img.shields.io/badge/Vercel-000?logo=vercel)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 </p>
@@ -46,11 +47,11 @@ A premium, SaaS-style personal portfolio showcasing expertise in full-stack engi
 
 - **Hero** — Typewriter role animation, interactive terminal window, floating stat cards, CTA buttons, social links, **Download CV button**
 - **About** — Professional summary + 8 interactive engineering principle cards (Clean Architecture, SOLID, DDD, etc.)
-- **Skills** — Tab-switcher between 11 Engineering Skill categories (with proficiency bars) and 6 AI & LLM Expertise categories
+- **Skills** — Tab-switcher between 11 Engineering Skill categories (with proficiency bars) and 6 AI & LLM Expertise categories, plus an animated **AI Infrastructure Pipeline** flow diagram
 - **Projects** — 47 auto-populated GitHub repositories with tag filtering, featured badges, metrics, and GitHub/demo links
 - **Experience** — Animated vertical timeline with 13 roles spanning 2005–Present
 - **Testimonials** — Carousel with LinkedIn recommendations, star ratings, and navigation
-- **Blog** — Card grid with tag filtering, reading time, and date metadata
+- **Blog** — Card grid with tag filtering, reading time, and date metadata + individual article pages with full markdown rendering
 
 ### Technical Highlights
 
@@ -61,7 +62,9 @@ A premium, SaaS-style personal portfolio showcasing expertise in full-stack engi
 - Mobile-responsive with animated drawer navigation
 - SEO-optimized with Helmet, Open Graph, Twitter Cards, and JSON-LD structured data
 - WCAG AA accessible with semantic HTML, ARIA labels, keyboard navigation, and focus indicators
-- Auto-deployed via GitHub Actions to GitHub Pages on every push
+- Auto-deployed to GitHub Pages (Actions) and Vercel (CLI) with conditional base path
+- Code-split architecture: route-level lazy loading + below-fold section loading via IntersectionObserver
+- Initial JS bundle reduced by ~73% (713 KB → 195 KB) through manual chunk splitting
 
 ---
 
@@ -79,6 +82,8 @@ A premium, SaaS-style personal portfolio showcasing expertise in full-stack engi
 | Framer Motion | 12 |
 | Lucide React | 0.510 |
 | React Helmet Async | 2 |
+| react-markdown | 10 |
+| remark-gfm | 4 |
 | clsx + tailwind-merge | — |
 
 ### Tooling
@@ -88,6 +93,7 @@ A premium, SaaS-style personal portfolio showcasing expertise in full-stack engi
 | oxlint | Linting |
 | Prettier | Code formatting |
 | pdfkit | Resume PDF generation |
+| react-markdown + remark-gfm | Markdown rendering for blog articles |
 | GitHub Actions | CI/CD & deployment |
 
 ---
@@ -96,16 +102,19 @@ A premium, SaaS-style personal portfolio showcasing expertise in full-stack engi
 
 ```
 src/
+├── common/            # Shared utility components (LazySection)
 ├── components/
 │   ├── layout/        # Navbar, Footer, RootLayout
 │   ├── sections/      # Hero, About, Skills, Projects, Experience, Testimonials, Blog
-│   └── ui/            # Button, GlassCard, Card, GradientText, SectionHeader, Badge,
+│   │                 # + AI flow diagram
+│   └── ui/            # Button, GlassCard, GradientText, SectionHeader, Badge,
 │                      # AnimatedCounter, TerminalWindow, GlowBackground
+├── content/           # Full article markdown files (blog/)
 ├── data/              # Typed content files (profile, skills, projects, experience, etc.)
 ├── hooks/             # Custom React hooks
 ├── lib/               # Utility: cn() class merging
-├── pages/             # HomePage, NotFoundPage
-├── routes/            # React Router configuration
+├── pages/             # HomePage, BlogArticlePage, NotFoundPage
+├── routes/            # React Router configuration with lazy-loaded routes
 ├── scripts/           # Build tooling (generate-resume.mjs)
 ├── styles/            # Global CSS with Tailwind `@theme` design tokens
 ├── types/             # Shared TypeScript interfaces
@@ -216,6 +225,8 @@ WCAG AA compliant:
 - **Portfolio (GitHub Pages):** https://evillan0315.github.io/portfolio/
 - **Portfolio (Vercel):** https://portfolio-xi-blush-65.vercel.app
 - **Resume:** https://evillan0315.github.io/portfolio/resume.pdf
+- **Email:** evillan0315@gmail.com
+- **Phone:** +639983971193
 - **GitHub:** https://github.com/evillan0315
 - **LinkedIn:** https://www.linkedin.com/in/evillanueva0315
 
