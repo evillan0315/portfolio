@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { GradientText } from "@/components/ui/gradient-text"
 import { GlowBackground } from "@/components/ui/glow-background"
 
-export function NotFoundPage() {
+export default function NotFoundPage() {
   const error = useRouteError()
   const isError = isRouteErrorResponse(error)
 

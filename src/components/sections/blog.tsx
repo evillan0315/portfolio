@@ -21,7 +21,7 @@ function formatDate(dateStr: string) {
   })
 }
 
-export function Blog() {
+export default function Blog() {
   const [activeTag, setActiveTag] = useState<string | null>(null)
 
   const filtered = activeTag

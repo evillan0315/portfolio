@@ -8,7 +8,7 @@ import { GlassCard } from "@/components/ui/glass-card"
 import { cn } from "@/lib/utils"
 import { testimonials } from "@/data/testimonials"
 
-export function Testimonials() {
+export default function Testimonials() {
   const [current, setCurrent] = useState(0)
   const [direction, setDirection] = useState(0)
 

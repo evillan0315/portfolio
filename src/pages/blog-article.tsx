@@ -151,7 +151,7 @@ const markdownComponents: Components = {
   ),
 }
 
-export function BlogArticlePage() {
+export default function BlogArticlePage() {
   const { slug } = useParams<{ slug: string }>()
   const post = blogPosts.find((p) => p.slug === slug)
   const markdownContent = slug ? contentBySlug[slug] : undefined

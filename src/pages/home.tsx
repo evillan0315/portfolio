@@ -1,13 +1,16 @@
+import { lazy } from "react"
 import { Helmet } from "react-helmet-async"
 import { Hero } from "@/components/sections/hero"
-import { About } from "@/components/sections/about"
-import { Skills } from "@/components/sections/skills"
-import { Projects } from "@/components/sections/projects"
-import { Experience } from "@/components/sections/experience"
-import { Testimonials } from "@/components/sections/testimonials"
-import { Blog } from "@/components/sections/blog"
+import { LazySection } from "@/components/common/lazy-section"
 
-export function HomePage() {
+const About = lazy(() => import("@/components/sections/about"))
+const Skills = lazy(() => import("@/components/sections/skills"))
+const Projects = lazy(() => import("@/components/sections/projects"))
+const Experience = lazy(() => import("@/components/sections/experience"))
+const Testimonials = lazy(() => import("@/components/sections/testimonials"))
+const Blog = lazy(() => import("@/components/sections/blog"))
+
+export default function HomePage() {
   return (
     <>
       <Helmet>
@@ -45,13 +48,28 @@ export function HomePage() {
         </script>
       </Helmet>
 
+      {/* Hero — above the fold, loaded eagerly */}
       <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Experience />
-      <Testimonials />
-      <Blog />
+
+      {/* Below-fold sections — lazy loaded via IntersectionObserver */}
+      <LazySection id="about-section">
+        <About />
+      </LazySection>
+      <LazySection id="skills-section">
+        <Skills />
+      </LazySection>
+      <LazySection id="projects-section">
+        <Projects />
+      </LazySection>
+      <LazySection id="experience-section">
+        <Experience />
+      </LazySection>
+      <LazySection id="testimonials-section">
+        <Testimonials />
+      </LazySection>
+      <LazySection id="blog-section">
+        <Blog />
+      </LazySection>
     </>
   )
 }

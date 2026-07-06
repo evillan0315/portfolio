@@ -74,7 +74,7 @@ function ProficiencyBar({ value, label }: { value: number; label: string }) {
   )
 }
 
-export function Skills() {
+export default function Skills() {
   const [activeTab, setActiveTab] = useState<"skills" | "ai">("skills")
 
   const tabs: { id: "skills" | "ai"; label: string }[] = [

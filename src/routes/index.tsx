@@ -1,8 +1,27 @@
+import { lazy, Suspense } from "react"
 import { createBrowserRouter, type RouteObject } from "react-router-dom"
 import { RootLayout } from "@/components/layout/root-layout"
-import { HomePage } from "@/pages/home"
-import { BlogArticlePage } from "@/pages/blog-article"
-import { NotFoundPage } from "@/pages/not-found"
+
+const HomePage = lazy(() => import("@/pages/home"))
+const BlogArticlePage = lazy(() => import("@/pages/blog-article"))
+const NotFoundPage = lazy(() => import("@/pages/not-found"))
+
+function SuspenseWrapper({ Component }: { Component: React.LazyExoticComponent<React.ComponentType> }) {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-[#09090B]">
+          <div className="flex flex-col items-center gap-3">
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-accent border-t-transparent" />
+            <span className="text-sm text-text-muted">Loading…</span>
+          </div>
+        </div>
+      }
+    >
+      <Component />
+    </Suspense>
+  )
+}
 
 const routes: RouteObject[] = [
   {
@@ -10,15 +29,15 @@ const routes: RouteObject[] = [
     children: [
       {
         index: true,
-        element: <HomePage />,
+        element: <SuspenseWrapper Component={HomePage} />,
       },
       {
         path: "blog/:slug",
-        element: <BlogArticlePage />,
+        element: <SuspenseWrapper Component={BlogArticlePage} />,
       },
       {
         path: "*",
-        element: <NotFoundPage />,
+        element: <SuspenseWrapper Component={NotFoundPage} />,
       },
     ],
   },

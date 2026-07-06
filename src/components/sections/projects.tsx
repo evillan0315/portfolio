@@ -13,7 +13,7 @@ import type { Project } from "@/types"
 /* ── Tag extractor ── */
 const allTags = Array.from(new Set(projects.flatMap((p) => p.tags))).sort()
 
-export function Projects() {
+export default function Projects() {
   const [activeTag, setActiveTag] = useState<string | null>(null)
 
   const filtered = activeTag
