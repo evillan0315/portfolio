@@ -1,13 +1,25 @@
-import { defineConfig } from "vite"
+import { defineConfig, type Plugin } from "vite"
 import react from "@vitejs/plugin-react"
 import tailwindcss from "@tailwindcss/vite"
 import path from "path"
+// @ts-expect-error — .mjs script outside TS project root
+import { generateSitemap } from "./scripts/generate-sitemap.mjs"
 
 const base = process.env.VERCEL ? "/" : "/portfolio/"
 
+/** Vite plugin that generates sitemap.xml into the output directory */
+function sitemapPlugin(): Plugin {
+  return {
+    name: "sitemap-generator",
+    closeBundle() {
+      generateSitemap("dist")
+    },
+  }
+}
+
 export default defineConfig({
   base,
-  plugins: [react(), tailwindcss()],
+  plugins: [react(), tailwindcss(), sitemapPlugin()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

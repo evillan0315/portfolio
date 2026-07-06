@@ -121,7 +121,7 @@
 - [x] Open Graph tags per page
 - [x] Twitter Card tags
 - [x] JSON-LD Person structured data
-- [ ] Generate sitemap.xml
+- [x] Generate sitemap.xml (8 URLs via Vite build plugin)
 - [x] Create robots.txt
 - [x] Generate favicon set (SVG)
 
