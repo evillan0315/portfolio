@@ -90,6 +90,10 @@
 - [x] Build blog card grid
 - [x] Implement tag filtering
 - [x] Prepare for Markdown/MDX content
+- [x] Install react-markdown + remark-gfm for markdown rendering
+- [x] Build individual blog article page with custom styled components
+- [x] Dynamic content loading via import.meta.glob with slug matching
+- [x] SPA navigation using React Router Link
 
 ## Phase 11 — Performance & Polish
 
@@ -141,8 +145,7 @@
 
 ## Phase 16 — Post-Launch
 
-- [ ] CMS integration for blog
-- [ ] MDX blog support
+- [ ] CMS integration for blog with rich content management
 - [ ] Project filtering and search
 - [ ] Interactive code playground
 - [ ] Dark/light theme toggle
