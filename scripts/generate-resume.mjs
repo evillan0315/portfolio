@@ -9,7 +9,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const profile = {
   name: "Eddie Villanueva",
   title: "Full-Stack & AI Engineer",
-  email: "eddie@example.com",
+  email: "evillan0315@gmail.com",
   location: "National Capital Region, Philippines",
   summary:
     "Senior full-stack, cloud, DevOps, and AI engineer with 14+ years of experience designing and operating scalable web apps, cloud platforms, and AI-enabled systems end-to-end. Specializes in TypeScript-first stacks, modern React architectures, API design, cloud-native infrastructure, and production-level DevOps practices.",
@@ -100,6 +100,9 @@ function generateResume() {
   y += 10
 
   doc.font("Helvetica").fontSize(10).fillColor(gray).text(`Email: ${profile.email}`, leftMargin, y)
+  y += 14
+
+  doc.font("Helvetica").fontSize(10).fillColor(gray).text(`Phone: +639983971193`, leftMargin, y)
   y += 24
 
   /* ── Summary ── */

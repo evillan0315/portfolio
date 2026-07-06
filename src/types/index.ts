@@ -94,6 +94,7 @@ export interface Profile {
   tagline: string
   summary: string
   email: string
+  phone: string
   location: string
   avatar: string
   resumeUrl?: string

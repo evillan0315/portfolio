@@ -1,4 +1,4 @@
-import { ArrowUp } from "lucide-react"
+import { ArrowUp, Mail, Phone } from "lucide-react"
 import { navigation } from "@/data/navigation"
 import { socialLinks } from "@/data/social"
 import { profile } from "@/data/profile"
@@ -94,6 +94,24 @@ export function Footer() {
               ))}
             </ul>
           </nav>
+        </div>
+
+        {/* Contact info */}
+        <div className="mt-8 flex flex-col items-center gap-3 text-center md:flex-row md:justify-center md:gap-8">
+          <a
+            href={`mailto:${profile.email}`}
+            className="inline-flex items-center gap-2 text-sm text-text-muted transition-colors hover:text-accent"
+          >
+            <Mail size={14} aria-hidden="true" />
+            {profile.email}
+          </a>
+          <a
+            href={`tel:${profile.phone}`}
+            className="inline-flex items-center gap-2 text-sm text-text-muted transition-colors hover:text-accent"
+          >
+            <Phone size={14} aria-hidden="true" />
+            {profile.phone}
+          </a>
         </div>
 
         {/* Divider */}

@@ -7,7 +7,8 @@ export const profile: Profile = {
     "Building scalable platforms, developer tooling, and AI-powered solutions with clean architecture and production excellence.",
   summary:
     "Senior full-stack, cloud, DevOps, and AI engineer with deep expertise in modern web technologies, cloud-native infrastructure, and LLM-powered systems. Passionate about crafting maintainable, scalable software that delivers real impact.",
-  email: "eddie@example.com",
+  email: "evillan0315@gmail.com",
+  phone: "+639983971193",
   location: "San Francisco, CA",
   avatar: "/avatar.jpg",
   resumeUrl: "/resume.pdf",
