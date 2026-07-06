@@ -10,7 +10,7 @@ export const profile: Profile = {
   email: "evillan0315@gmail.com",
   phone: "+639983971193",
   location: "San Francisco, CA",
-  avatar: "/avatar.jpg",
+  avatar: "/hero-portrait.png",
   resumeUrl: "/resume.pdf",
   available: true,
 }

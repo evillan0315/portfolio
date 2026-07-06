@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { Code2, Users, Award, Coffee } from "lucide-react"
 import { AnimatedCounter } from "@/components/ui/animated-counter"
+import heroImage from "@/assets/eddie-v-hero-image.png"
 
 /* ── Stats data ── */
 const heroStats = [
@@ -26,21 +27,20 @@ const codeSnippet = [
   { color: "text-yellow-400/20", text: "⚡ Production ready" },
 ]
 
-/* ── Portrait placeholder with initials ── */
-function PortraitPlaceholder() {
+/* ── Portrait photo ── */
+function PortraitPhoto() {
   return (
     <div className="relative z-10 mx-auto h-48 w-48 overflow-hidden rounded-[28px] border-2 border-white/10 shadow-2xl shadow-indigo-500/20 sm:h-56 sm:w-56 md:h-64 md:w-64">
-      {/* Gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500" />
-      {/* Decorative circles */}
-      <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/10" />
-      <div className="absolute -bottom-6 -left-6 h-24 w-24 rounded-full bg-white/5" />
-      {/* Initials */}
-      <div className="flex h-full items-center justify-center">
-        <span className="text-5xl font-black tracking-tighter text-white/90 sm:text-6xl md:text-7xl">
-          EV
-        </span>
-      </div>
+      {/* Photo */}
+      <img
+        src={heroImage}
+        alt="Eddie Villanueva — Full-Stack & AI Engineer"
+        className="h-full w-full object-cover"
+        loading="eager"
+        decoding="async"
+      />
+      {/* Subtle gradient overlay for depth */}
+      <div className="pointer-events-none absolute inset-0 rounded-[28px] ring-1 ring-inset ring-white/10" />
     </div>
   )
 }
@@ -112,7 +112,7 @@ export function HeroImageCard() {
 
         {/* Portrait — overlapping bottom of code area */}
         <div className="relative -mt-16 flex justify-center sm:-mt-20">
-          <PortraitPlaceholder />
+          <PortraitPhoto />
         </div>
 
         {/* Stats panel */}
