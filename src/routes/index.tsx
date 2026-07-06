@@ -1,6 +1,7 @@
 import { createBrowserRouter, type RouteObject } from "react-router-dom"
 import { RootLayout } from "@/components/layout/root-layout"
 import { HomePage } from "@/pages/home"
+import { BlogArticlePage } from "@/pages/blog-article"
 import { NotFoundPage } from "@/pages/not-found"
 
 const routes: RouteObject[] = [
@@ -10,6 +11,10 @@ const routes: RouteObject[] = [
       {
         index: true,
         element: <HomePage />,
+      },
+      {
+        path: "blog/:slug",
+        element: <BlogArticlePage />,
       },
       {
         path: "*",

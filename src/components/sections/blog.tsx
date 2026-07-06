@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { Calendar, Clock, ArrowRight } from "lucide-react"
 import { SectionHeader } from "@/components/ui/section-header"
@@ -112,13 +113,13 @@ export function Blog() {
                 </div>
 
                 {/* Read link */}
-                <a
-                  href={`/blog/${post.slug}`}
+                <Link
+                  to={`/blog/${post.slug}`}
                   className="inline-flex items-center gap-1 text-xs font-medium text-accent transition-colors hover:text-white"
                 >
                   Read Article
                   <ArrowRight size={12} />
-                </a>
+                </Link>
               </GlassCard>
             </motion.div>
           ))}
