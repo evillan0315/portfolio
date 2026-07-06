@@ -55,4 +55,13 @@ export const blogPosts: BlogPost[] = [
     tags: ["DevOps", "Terraform", "Infrastructure", "Cloud"],
     readingTime: 14,
   },
+  {
+    title: "Building a Premium Portfolio with OpenCode: An AI-Assisted Journey",
+    slug: "building-premium-portfolio-with-opencode",
+    date: "2026-05-20",
+    summary:
+      "How I built a production-grade personal portfolio site using OpenCode as an AI coding assistant — from scaffolding to deployment, with lessons on agent-driven development workflows.",
+    tags: ["OpenCode", "AI-Assisted Dev", "React", "Architecture"],
+    readingTime: 12,
+  },
 ]
