@@ -3,8 +3,10 @@ import react from "@vitejs/plugin-react"
 import tailwindcss from "@tailwindcss/vite"
 import path from "path"
 
+const base = process.env.VERCEL ? "/" : "/portfolio/"
+
 export default defineConfig({
-  base: "/portfolio/",
+  base,
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
