@@ -28,16 +28,18 @@ export function HomePage() {
           name="twitter:description"
           content="Senior full-stack, cloud, DevOps, and AI engineer building scalable platforms, developer tooling, and AI-powered solutions."
         />
+        <link rel="canonical" href="https://evillan0315.github.io/portfolio/" />
+        <meta property="og:url" content="https://evillan0315.github.io/portfolio/" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Person",
             name: "Eddie Villanueva",
             jobTitle: "Full-Stack & AI Engineer",
-            url: "https://yourdomain.com",
+            url: "https://evillan0315.github.io/portfolio/",
             sameAs: [
-              "https://github.com/yourusername",
-              "https://linkedin.com/in/yourusername",
+              "https://github.com/evillan0315",
+              "https://www.linkedin.com/in/evillanueva0315",
             ],
           })}
         </script>
