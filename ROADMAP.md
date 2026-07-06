@@ -127,10 +127,19 @@
 - [x] Configure Pages deployment with SPA fallback (404.html)
 - [x] Enable HTTPS
 - [x] Set up security headers
+- [x] Conditional Vite base for GitHub Pages (`/portfolio/`) and Vercel (`/`)
 - [x] Deploy to GitHub Pages
+- [x] Deploy to Vercel via CLI
 - [ ] Configure custom domain
 
-## Phase 15 — Post-Launch
+## Phase 15 — Resume / CV
+
+- [x] Generate professional PDF resume from profile & experience data
+- [x] Add `pnpm generate-resume` script using pdfkit
+- [x] Download CV button with base-aware URL routing
+- [x] Base-aware asset path resolution for dual deployment
+
+## Phase 16 — Post-Launch
 
 - [ ] CMS integration for blog
 - [ ] MDX blog support
@@ -142,6 +151,5 @@
 - [ ] AI chatbot assistant
 - [ ] GitHub contribution visualization
 - [ ] Live coding demos
-- [ ] Resume generator
 - [ ] Contact form backend
 - [ ] Dynamic project metrics from GitHub API

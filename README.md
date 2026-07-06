@@ -25,9 +25,12 @@
 
 ---
 
-## Live Site
+## Live Sites
 
-**https://evillan0315.github.io/portfolio/**
+| Site | URL |
+|---|---|
+| **GitHub Pages** | https://evillan0315.github.io/portfolio/ |
+| **Vercel** | https://portfolio-xi-blush-65.vercel.app |
 
 ---
 
@@ -41,7 +44,7 @@ A premium, SaaS-style personal portfolio showcasing expertise in full-stack engi
 
 ### Sections
 
-- **Hero** — Typewriter role animation, interactive terminal window, floating stat cards, CTA buttons, social links
+- **Hero** — Typewriter role animation, interactive terminal window, floating stat cards, CTA buttons, social links, **Download CV button**
 - **About** — Professional summary + 8 interactive engineering principle cards (Clean Architecture, SOLID, DDD, etc.)
 - **Skills** — Tab-switcher between 11 Engineering Skill categories (with proficiency bars) and 6 AI & LLM Expertise categories
 - **Projects** — 47 auto-populated GitHub repositories with tag filtering, featured badges, metrics, and GitHub/demo links
@@ -84,6 +87,7 @@ A premium, SaaS-style personal portfolio showcasing expertise in full-stack engi
 |---|---|
 | oxlint | Linting |
 | Prettier | Code formatting |
+| pdfkit | Resume PDF generation |
 | GitHub Actions | CI/CD & deployment |
 
 ---
@@ -102,10 +106,12 @@ src/
 ├── lib/               # Utility: cn() class merging
 ├── pages/             # HomePage, NotFoundPage
 ├── routes/            # React Router configuration
+├── scripts/           # Build tooling (generate-resume.mjs)
 ├── styles/            # Global CSS with Tailwind `@theme` design tokens
 ├── types/             # Shared TypeScript interfaces
 ├── App.tsx            # Root component (HelmetProvider + RouterProvider)
 └── main.tsx           # Entry point
+public/                # Static assets (resume.pdf, favicon.svg, robots.txt)
 ```
 
 ---
@@ -153,12 +159,15 @@ pnpm dev
 | `pnpm lint` | Run oxlint |
 | `pnpm typecheck` | Run TypeScript check |
 | `pnpm format` | Run Prettier |
+| `pnpm generate-resume` | Generate resume PDF from data files |
 
 ---
 
 ## Deployment
 
-Auto-deployed to **GitHub Pages** via GitHub Actions on every push to `main`.
+The portfolio is dual-deployed to **GitHub Pages** (via GitHub Actions) and **Vercel** (via Vercel CLI).
+
+### GitHub Pages
 
 The workflow in `.github/workflows/deploy.yml`:
 1. Checks out the repository
@@ -168,7 +177,15 @@ The workflow in `.github/workflows/deploy.yml`:
 5. Uploads `dist/` as a Pages artifact
 6. Deploys to GitHub Pages
 
-The Vite `base` is configured as `/portfolio/` and `index.html` is copied to `404.html` for SPA routing support.
+Vite `base` is set to `/portfolio/` (config uses `process.env.VERCEL` to switch between platforms).
+
+### Vercel
+
+Deployed via `vercel --prod`. Vite `base` is set to `/` on Vercel. Configured with `vercel.json` for SPA rewrites and security headers.
+
+### SPA Support
+
+`index.html` is copied to `404.html` at build time for GitHub Pages SPA fallback. Vercel uses a catch-all rewrite in `vercel.json`.
 
 ---
 
@@ -196,7 +213,9 @@ WCAG AA compliant:
 
 ## Connect
 
-- **Portfolio:** https://evillan0315.github.io/portfolio/
+- **Portfolio (GitHub Pages):** https://evillan0315.github.io/portfolio/
+- **Portfolio (Vercel):** https://portfolio-xi-blush-65.vercel.app
+- **Resume:** https://evillan0315.github.io/portfolio/resume.pdf
 - **GitHub:** https://github.com/evillan0315
 - **LinkedIn:** https://www.linkedin.com/in/evillanueva0315
 
