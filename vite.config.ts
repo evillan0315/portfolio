@@ -4,6 +4,8 @@ import tailwindcss from "@tailwindcss/vite"
 import path from "path"
 // @ts-expect-error — .mjs script outside TS project root
 import { generateSitemap } from "./scripts/generate-sitemap.mjs"
+// @ts-expect-error — .mjs script outside TS project root
+import { generateResumeJson } from "./scripts/generate-resume-json.mjs"
 
 const base = process.env.VERCEL ? "/" : "/portfolio/"
 
@@ -17,9 +19,19 @@ function sitemapPlugin(): Plugin {
   }
 }
 
+/** Vite plugin that generates resume.json into the public directory */
+function resumeJsonPlugin(): Plugin {
+  return {
+    name: "resume-json-generator",
+    closeBundle() {
+      generateResumeJson()
+    },
+  }
+}
+
 export default defineConfig({
   base,
-  plugins: [react(), tailwindcss(), sitemapPlugin()],
+  plugins: [react(), tailwindcss(), sitemapPlugin(), resumeJsonPlugin()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

@@ -10,7 +10,8 @@
     "lint": "oxlint",
     "typecheck": "tsc -b --noEmit",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,json}\"",
-    "generate-resume": "node scripts/generate-resume.mjs"
+    "generate-resume": "node scripts/generate-resume.mjs",
+    "generate-resume-json": "node scripts/generate-resume-json.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

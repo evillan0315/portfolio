@@ -1,0 +1,461 @@
+/**
+ * Generates resume.json in the public/ directory following JSON Resume schema
+ * (https://jsonresume.org/schema) using the project's data files.
+ *
+ * Run: node scripts/generate-resume-json.mjs
+ * Or included in the build pipeline via vite.config.ts.
+ */
+
+import fs from "fs"
+import path from "path"
+import { fileURLToPath } from "url"
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const PUBLIC_DIR = path.resolve(__dirname, "..", "public")
+
+/* ────────────────────────────────────────────── */
+/*  DATA (mirrors src/data/ files)               */
+/* ────────────────────────────────────────────── */
+
+const basics = {
+  name: "Eddie Villanueva",
+  label: "Full-Stack & AI Engineer",
+  image: "",
+  email: "evillan0315@gmail.com",
+  phone: "+639983971193",
+  url: "https://eddie-villanueva.vercel.app",
+  summary:
+    "Senior full-stack, cloud, DevOps, and AI engineer with 20+ years of experience designing, building, and operating scalable web applications, cloud-native infrastructure, and AI-powered systems. Specializes in TypeScript-first stacks, React architectures, API design, cloud platforms (AWS/Azure/GCP), and production-grade DevOps practices. Passionate about clean code, developer tooling, and bridging the gap between traditional engineering and modern LLM-based systems.",
+  location: {
+    address: "National Capital Region, Philippines",
+    postalCode: "",
+    city: "Manila",
+    countryCode: "PH",
+    region: "National Capital Region",
+  },
+  profiles: [
+    {
+      network: "GitHub",
+      username: "evillan0315",
+      url: "https://github.com/evillan0315",
+    },
+    {
+      network: "LinkedIn",
+      username: "evillanueva0315",
+      url: "https://www.linkedin.com/in/evillanueva0315",
+    },
+  ],
+}
+
+const work = [
+  {
+    name: "Self-Employed",
+    location: "National Capital Region, Philippines · Remote",
+    description: "Freelance AI Developer",
+    position: "Freelance AI Developer",
+    url: "",
+    startDate: "2025-07",
+    endDate: null,
+    summary:
+      "Integrating open-weight and frontier AI models (GPT, Qwen, DeepSeek, Mistral) into production workflows. Deploying self-hosted GPU AI inference servers with Ollama, Docker, and Kubernetes. Building RAG architectures and vector pipelines for AI-powered applications.",
+    highlights: [
+      "Integrate open-weight and frontier models including GPT OSS, Qwen, DeepSeek, and Mistral into production workflows",
+      "Deploy and customize OpenWebUI with self-hosted GPU AI servers for local inference pipelines",
+      "Build RAG architectures and vector pipelines for AI-powered applications",
+      "Run Ollama inference infrastructure on Docker and Kubernetes orchestrations",
+    ],
+  },
+  {
+    name: "Freelance",
+    location: "Remote",
+    description: "Technology Consultant",
+    position: "Technology Consultant",
+    url: "",
+    startDate: "2023-05",
+    endDate: null,
+    summary:
+      "Delivering end-to-end full-stack solutions for diverse industries, focusing on cloud-native applications and generative AI integration. Managing full project lifecycles with DevOps-backed deployment across AWS, Azure, and GCP.",
+    highlights: [
+      "Built a modern chat application combining AI with video calling and messaging (D8 Chat AI)",
+      "Delivered custom software solutions across various industries with end-to-end lifecycle management",
+      "Implemented CI/CD pipelines and cloud infrastructure for scalable production deployments",
+    ],
+  },
+  {
+    name: "Meetlily Advertising",
+    location: "United States · On-site",
+    description: "Founder & Lead Engineer",
+    position: "Founder & Lead Engineer",
+    url: "",
+    startDate: "2019-01",
+    endDate: "2023-05",
+    summary:
+      "Led operations and strategic direction with full responsibility for bottom-line factors, including planning, product management, and software development. Built web, mobile, and desktop applications with integrated server administration and security management.",
+    highlights: [
+      "Launched Meetlily Dashboard with analytics, inventory, accounting, HR, and e-learning modules",
+      "Managed full-stack development, server administration, and security for hosted applications",
+      "Delivered a clean, functional admin interface with real-time data visualization",
+    ],
+  },
+  {
+    name: "Dashboard Hosting",
+    location: "United States · Remote",
+    description: "Software Engineer Consultant",
+    position: "Software Engineer Consultant",
+    url: "",
+    startDate: "2020-12",
+    endDate: "2023-03",
+    summary:
+      "Developed and managed software applications including a scalable real-time chat and video streaming platform. Responsible for security, configuration, and administration of Linux virtual servers with Kubernetes and Docker orchestration.",
+    highlights: [
+      "Designed a multi-node Kubernetes architecture with master and worker nodes distributed across availability zones for high availability",
+      "Built custom Docker containers for frontend and backend deployed within Kubernetes clusters",
+      "Implemented real-time communication features using WebRTC, WebSockets, OpenVidu, and CoTurn",
+      "Created shell/bash scripts to automate configuration, deployment, and monitoring across environments",
+      "Set up Prometheus and Grafana for system metrics monitoring and proactive performance management",
+    ],
+  },
+  {
+    name: "Welligent",
+    location: "Norfolk, Virginia Area",
+    description: "Software / Mobile / Front End Engineer",
+    position: "Software / Mobile / Front End Engineer",
+    url: "",
+    startDate: "2015-03",
+    endDate: "2020-08",
+    summary:
+      "Designed and developed mobile applications for iOS, Android, and Windows platforms. Built hybrid applications using modern web technologies for cross-platform compatibility. Contributed to an enterprise SaaS electronic health records (EHR) platform.",
+    highlights: [
+      "Developed Welligent Express mobile EHR app for iOS and Android for on-the-go documentation",
+      "Built real-time messaging and video conferencing features using WebRTC",
+      "Ensured cross-browser compatibility and Section 508 accessibility compliance for the enterprise SaaS platform",
+      "Addressed XSS, CSRF security vulnerabilities and implemented CORS for cross-origin requests",
+      "Architected REST APIs with Node.js and worked with SOAP for XML data exchange",
+    ],
+  },
+  {
+    name: "Easton Advertising",
+    location: "Virginia Beach, Virginia",
+    description: "Web Developer",
+    position: "Web Developer",
+    url: "",
+    startDate: "2014-03",
+    endDate: "2017-07",
+    summary:
+      "Provided web programming and design services for Easton Advertising's clients. Participated in creative development, implementation, and strategic direction for client websites.",
+    highlights: [
+      "Contributed to web design, programming, and advertising execution for multiple client accounts",
+      "Built relationships with subcontractors, reps, and vendors to support agency efforts",
+      "Identified and pursued new business opportunities for the agency",
+    ],
+  },
+  {
+    name: "Resite Online",
+    location: "Downtown Norfolk",
+    description: "Web Developer",
+    position: "Web Developer",
+    url: "",
+    startDate: "2013-10",
+    endDate: "2014-04",
+    summary:
+      "Planned, created, launched, and managed websites with strong emphasis on user-centered design, usability standards, and human factors testing.",
+    highlights: [
+      "Delivered client websites following user-centered design and usability standards",
+      "Built data-driven applications with PHP and MySQL backends",
+    ],
+  },
+  {
+    name: "InMotion Hosting",
+    location: "Virginia Beach, Virginia",
+    description: "Web Designer / Coder II",
+    position: "Web Designer / Coder II",
+    url: "",
+    startDate: "2013-05",
+    endDate: "2013-11",
+    summary:
+      "Planned, developed, and maintained the design process for website customers. Directed design, development, and delivery of client websites including comp design, content integration, and production workflows.",
+    highlights: [
+      "Directed end-to-end website delivery including design, content integration, and production workflows",
+      "Researched new technology and design techniques for process integration",
+    ],
+  },
+  {
+    name: "Oni Design Studios",
+    location: "Virginia",
+    description: "Multimedia / Web Design",
+    position: "Multimedia / Web Design",
+    url: "",
+    startDate: "2010-10",
+    endDate: "2012-08",
+    summary:
+      "Worked on a multitude of web and corporate identity projects. Designed graphics for web-based multimedia projects including backgrounds, interfaces, menus, video creation, and graphical content.",
+    highlights: [
+      "Provided programming and visual design for client websites with WordPress and Drupal integration",
+      "Created animated graphical content using After Effects, Photoshop, and Flash",
+      "Designed corporate identity and branding materials for diverse clients",
+    ],
+  },
+  {
+    name: "Bucket Pay (AFLAC)",
+    location: "Virginia Beach, VA",
+    description: "Web Developer / Programmer",
+    position: "Web Developer / Programmer",
+    url: "",
+    startDate: "2011-09",
+    endDate: "2012-07",
+    summary:
+      "Built and integrated websites, applications, and services for internal and public sites. Developed appropriate architecture, data-driven applications, and efficient client-server solutions.",
+    highlights: [
+      "Architected and built data-driven web applications for both internal and public-facing use",
+      "Trained Bucket Pay staff on newly developed web and Windows applications",
+    ],
+  },
+  {
+    name: "Centura College Online",
+    location: "Virginia Beach, Virginia",
+    description: "Coordinator of Project Design",
+    position: "Coordinator of Project Design",
+    url: "",
+    startDate: "2008-02",
+    endDate: "2011-09",
+    summary:
+      "Created resources to improve job functions and workflow. Managed multimedia requests and inter-department projects, staff training, and additional duties as assigned by Technology Division leadership.",
+    highlights: [
+      "Managed multimedia production and inter-departmental project design coordination",
+      "Led and trained project design staff for online education content development",
+      "Improved online student experience using up-to-date techniques and equipment",
+    ],
+  },
+  {
+    name: "Centura College",
+    location: "Virginia Beach, Virginia",
+    description: "Senior Instructional Designer",
+    position: "Senior Instructional Designer",
+    url: "",
+    startDate: "2009-03",
+    endDate: "2010-10",
+    summary:
+      "Created interactive Flash pieces used in the school LMS including interactive tests, informational pop-ups, and marketing demos. Converted educational content to engaging online formats.",
+    highlights: [
+      "Built interactive exams, assignments, forums, and games within the online course management system",
+      "Performed video editing, interface design, and audio editing for course content",
+    ],
+  },
+  {
+    name: "Liberty Tax, DELL Inc",
+    location: "Virginia Beach, Virginia",
+    description: "Technical Support",
+    position: "Technical Support",
+    url: "",
+    startDate: "2005-08",
+    endDate: "2008-02",
+    summary:
+      "Provided initial support for customer requests via telephone, email, and fax. Documented resolution information and escalated unresolved issues to appropriate areas.",
+    highlights: [
+      "Diagnosed and resolved hardware and software issues for consumer clients via phone and remote access",
+      "Documented solutions and escalated complex issues to specialized support teams",
+    ],
+  },
+]
+
+const education = [
+  {
+    institution: "Centura College",
+    url: "",
+    area: "Instructional Design",
+    studyType: "Senior Instructional Designer program",
+    startDate: "2008",
+    endDate: "2010",
+    score: "",
+    courses: [],
+  },
+]
+
+const skills = [
+  {
+    name: "Frontend",
+    level: "Expert",
+    keywords: [
+      "React", "TypeScript", "Next.js", "Tailwind CSS", "Vue.js",
+      "HTML5", "CSS3", "Framer Motion", "React Router",
+    ],
+  },
+  {
+    name: "Backend",
+    level: "Expert",
+    keywords: [
+      "Node.js", "NestJS", "Express", "Fastify", "Python", "Go",
+      "REST APIs", "GraphQL", "WebSockets", "Microservices",
+    ],
+  },
+  {
+    name: "Cloud & Infrastructure",
+    level: "Expert",
+    keywords: [
+      "AWS", "GCP", "Azure", "Vercel", "Cloudflare",
+      "Docker", "Kubernetes", "Terraform", "Ansible",
+      "GitHub Actions", "Nginx", "Linux",
+    ],
+  },
+  {
+    name: "Databases",
+    level: "Expert",
+    keywords: [
+      "PostgreSQL", "MongoDB", "Redis", "SQLite",
+      "MySQL", "Prisma", "Oracle PL/SQL",
+    ],
+  },
+  {
+    name: "AI / LLM Engineering",
+    level: "Advanced",
+    keywords: [
+      "OpenAI API", "Claude", "LangChain", "LangGraph",
+      "RAG", "Vector Search", "MCP", "Prompt Engineering",
+      "Context Engineering", "Tool Calling", "Structured Outputs",
+      "Fine-tuning", "Model Evaluation", "Ollama", "Hugging Face",
+    ],
+  },
+  {
+    name: "Architecture & Design",
+    level: "Expert",
+    keywords: [
+      "Clean Architecture", "DDD", "Event-Driven Architecture",
+      "API Design", "CQRS", "Event Sourcing",
+    ],
+  },
+  {
+    name: "Testing",
+    level: "Advanced",
+    keywords: [
+      "Vitest", "Playwright", "Cypress", "Jest",
+      "Testing Library", "E2E Testing",
+    ],
+  },
+  {
+    name: "Dev Tools & Security",
+    level: "Expert",
+    keywords: [
+      "Git", "VS Code", "Neovim", "pnpm", "ESLint",
+      "OWASP", "Auth0", "Clerk", "CORS", "XSS Prevention",
+    ],
+  },
+]
+
+const projects = [
+  {
+    name: "Portfolio",
+    description:
+      "Production-grade personal portfolio site built with React 19, TypeScript, Tailwind CSS v4, Framer Motion, and Vite. Features AI infrastructure pipeline visualization, 47 auto-populated GitHub repos, blog with markdown articles, and glassmorphism design system.",
+    highlights: [
+      "Route-level code splitting with lazy loading reduces initial JS from 713 KB to ~195 KB",
+      "All 47 public GitHub repos auto-populated via API with tag filtering",
+      "Blog engine with react-markdown, syntax-highlighted code blocks, and SEO metadata",
+      "Dual deployment to GitHub Pages and Vercel with conditional base URL configuration",
+    ],
+    keywords: ["React 19", "TypeScript", "Tailwind CSS v4", "Framer Motion", "Vite", "React Router v7"],
+    url: "https://eddie-villanueva.vercel.app",
+    githubUrl: "https://github.com/evillan0315/portfolio",
+  },
+  {
+    name: "AI Editor Front",
+    description: "React frontend for the AI Editor backend, built with Vite, React, Nanostores, Tailwind CSS, and Material-UI, focusing on intelligent code assistance and file system interaction.",
+    keywords: ["React", "TypeScript", "Vite", "Tailwind CSS", "Material-UI", "Nanostores"],
+    url: "",
+    githubUrl: "https://github.com/evillan0315/ai-editor-front",
+  },
+  {
+    name: "AI Planner",
+    description: "Powerful web interface to turn natural-language developer requests into structured, executable code plans. Features a dedicated LLM Prompt Generator for creating highly constrained system prompts.",
+    keywords: ["AI", "TypeScript", "LLM", "Prompt Engineering", "Next.js"],
+    url: "",
+    githubUrl: "https://github.com/evillan0315/ai-planner",
+  },
+  {
+    name: "CodeGen CLI",
+    description: "AI-powered code editor designed to assist developers with intelligent code generation, refactoring, and general code manipulation directly within their project structure.",
+    keywords: ["CLI", "AI", "TypeScript", "Code Generation", "LLM"],
+    url: "",
+    githubUrl: "https://github.com/evillan0315/codegen-cli",
+  },
+  {
+    name: "D8 Chat AI",
+    description: "Modern chat application combining AI with video calling and messaging. Built with WebRTC, WebSockets, and real-time communication technologies.",
+    keywords: ["WebRTC", "WebSockets", "AI", "Real-time", "Video Chat"],
+    url: "https://d8-swing.vercel.app",
+    githubUrl: "https://github.com/evillan0315/Real-time-Video-Chat",
+  },
+  {
+    name: "Meetlily Dashboard",
+    description: "Comprehensive suite of business applications with analytics, inventory, accounting, HR, and e-learning modules. Full-stack SaaS platform.",
+    keywords: ["React", "Next.js", "Prisma", "PostgreSQL", "SaaS"],
+    url: "https://meetlily.net/dashboard",
+    githubUrl: "https://github.com/evillan0315/meetlily-account",
+  },
+  {
+    name: "Auth Module",
+    description: "Robust and secure authentication module for NestJS using Prisma ORM, JWT authentication via HTTP-only cookies, and full Swagger API documentation with email verification.",
+    keywords: ["NestJS", "Prisma", "JWT", "Authentication", "TypeScript"],
+    url: "",
+    githubUrl: "https://github.com/evillan0315/auth-module",
+  },
+  {
+    name: "API Server NestJS",
+    description: "NestJS-based API server providing authentication, file management, AI integrations, and database interactions. Uses AWS Cognito, DynamoDB, Prisma, Google Gemini, and OpenAI.",
+    keywords: ["NestJS", "AWS", "TypeScript", "AI", "Prisma", "Cognito"],
+    url: "",
+    githubUrl: "https://github.com/evillan0315/api-server-nestjs",
+  },
+]
+
+const languages = [
+  { language: "English", fluency: "Native Speaker" },
+  { language: "Tagalog", fluency: "Native Speaker" },
+]
+
+const interests = [
+  { name: "AI/LLM Engineering" },
+  { name: "Cloud Architecture" },
+  { name: "Developer Tooling" },
+  { name: "Open Source" },
+  { name: "System Design" },
+]
+
+/* ────────────────────────────────────────────── */
+/*  BUILD RESUME JSON                             */
+/* ────────────────────────────────────────────── */
+
+const resume = {
+  $schema: "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+  basics,
+  work,
+  education,
+  skills,
+  projects,
+  languages,
+  interests,
+}
+
+/* ────────────────────────────────────────────── */
+/*  WRITE                                        */
+/* ────────────────────────────────────────────── */
+
+export function generateResumeJson() {
+  if (!fs.existsSync(PUBLIC_DIR)) {
+    fs.mkdirSync(PUBLIC_DIR, { recursive: true })
+  }
+
+  const outputPath = path.join(PUBLIC_DIR, "resume.json")
+  fs.writeFileSync(outputPath, JSON.stringify(resume, null, 2), "utf-8")
+  console.log(`✅ Resume JSON generated: ${outputPath}`)
+  console.log(`   Size: ${(Buffer.byteLength(JSON.stringify(resume), "utf-8") / 1024).toFixed(1)} KB`)
+}
+
+// Allow standalone execution: `node scripts/generate-resume-json.mjs`
+// Only run when executed directly (not when imported as a module).
+// Use import.meta.url check since ESM lacks require.main.
+const isDirectRun =
+  process.argv[1] &&
+  path.resolve(process.argv[1]) === path.resolve(import.meta.url.replace("file://", ""))
+if (isDirectRun) {
+  generateResumeJson()
+}
